@@ -6,6 +6,14 @@
   <name>lava-ct</name>
   
   <dependencies>
+  
+  <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+    <scope>test</scope>
+</dependency>
+  
   <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
 <dependency>
     <groupId>dom4j</groupId>
@@ -13,10 +21,19 @@
     <version>1.6.1</version>
 </dependency>
 
+<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.32</version>
+		</dependency>
+
+
   	<dependency>
   		<groupId>com.uhealin.lava</groupId>
   		<artifactId>lava-rt</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	
+  	
   </dependencies>
 </project>
