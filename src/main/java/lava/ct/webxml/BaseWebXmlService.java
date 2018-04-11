@@ -12,10 +12,7 @@ import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -24,7 +21,7 @@ import org.dom4j.Node;
 
 
 
-import com.kull.Netz;
+import lava.rt.common.IOCommon;
 
 
 
@@ -65,14 +62,11 @@ public abstract  class BaseWebXmlService {
         Document doc=null;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
-        String url=MessageFormat.format("{0}/{1}?{2}",
-          this.serviceUrl
-          ,endpiont
-          ,param
-         );
+        String url=this.serviceUrl+"/"+endpiont;
+        
          System.err.println(url);
-		 HttpGet get=new HttpGet(url);
-		 String context=Netz.getString(url);
+		 
+		 String context=IOCommon.get(url,param);
 		 try{
 		 doc= DocumentHelper.parseText(context);
 		 }catch(Exception ex){
@@ -81,7 +75,7 @@ public abstract  class BaseWebXmlService {
          return doc;
 	}
 	
-	protected  Document doPostEndPoint(String endpiont,Map<String, String> paramMap) throws Exception{
+	protected  Document doPostEndPoint(String endpiont,Map<String, Object> paramMap) throws Exception{
         Document doc=null;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
@@ -89,16 +83,9 @@ public abstract  class BaseWebXmlService {
           this.serviceUrl
           ,endpiont
          );
-		 //HttpGet get=new HttpGet(url);
-		 HttpPost post=new HttpPost(url);
-		 HttpParams params=new BasicHttpParams();
-		 for(Iterator<String> it=paramMap.keySet().iterator();it.hasNext();){
-			 String key=it.next();
-			 params.setParameter(key, paramMap.get(key));
-		 }
-		
-		 post.setParams(params);
-		 String context=Netz.doPost(post).getMsg();
+		 
+		 
+		 String context=IOCommon.post(url,paramMap);
 		 try{
 		 doc= DocumentHelper.parseText(context);
 		 }catch(Exception ex){

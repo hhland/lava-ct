@@ -2,18 +2,16 @@ package lava.ct.webxml;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import com.kull.Calendarz;
+
 import java.util.Date;
 import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Node;
 
+import lava.ct.instance.SimpleDateFormatInstance;
+import lava.rt.common.TextCommon;
 
-
-
-import com.kull.Stringz;
-import com.kull.datetime.DateFormatter;
 import java.util.Calendar;
 
 
@@ -40,7 +38,7 @@ public class WeatherWebService extends BaseWebXmlService{
 		for(Node node:nodes){
 			Area area=this.new Area();
 			String text=node.getText();
-			area.AreaCode=Integer.parseInt(Stringz.subString(text, "(", ")").get(0));
+			area.AreaCode=Integer.parseInt(TextCommon.subString(text, "(", ")").get(0));
 			area.Area=text.substring(0,text.indexOf("("));
 			areas.add(area);
 		}
@@ -73,7 +71,7 @@ public class WeatherWebService extends BaseWebXmlService{
      	node=nodes.get(index++);
     	weather.cityPic=node.getText();
     	node=nodes.get(index++);
-    	weather.date=DateFormatter.parsez(node.getText().trim());
+    	weather.date=SimpleDateFormatInstance.tryParse(node.getText().trim());
     	//node=nodes.get(index++);
     	StringBuffer context=new StringBuffer("");
     	//String[] texts=node.getText().split("/");
@@ -89,8 +87,8 @@ public class WeatherWebService extends BaseWebXmlService{
     		node=nodes.get(weaterIndex+1);
     	   	texts=node.getText().split(" ");
     	   	int yyyy=Calendar.getInstance().get(Calendar.YEAR);
-    	   	Date date=DateFormatter.parsez(texts[0],"MM月dd日");
-    	   	futrueWeather.date=Calendarz.attr(date, Calendar.YEAR, yyyy);
+    	   	Date date=SimpleDateFormatInstance.tryParse(texts[0]);//,"MM月dd日");
+    	   	//futrueWeather.date=Calendar.getInstance()..set(Calendar.YEAR, yyyy);
     	   	futrueWeather.weathContext=texts[1];
     	   	node=nodes.get(weaterIndex+2);
     	   	futrueWeather.windContext=node.getText();

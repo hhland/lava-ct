@@ -102,7 +102,7 @@ public class ChinaStockWebService extends BaseWebXmlService {
         int i=0;
         stock.code=nodes.get(i++).getText();
         stock.name=nodes.get(i++).getText();
-        stock.date=SimpleDateFormatInstance.tryParsez(nodes.get(i++).getText());
+        stock.date=SimpleDateFormatInstance.tryParse(nodes.get(i++).getText());
         stock.newestAmount=Double.parseDouble(nodes.get(i++).getText());
         stock.yesterdayClosingAmount=Double.parseDouble(nodes.get(i++).getText());
         stock.todayOpeningAmount=Double.parseDouble(nodes.get(i++).getText());

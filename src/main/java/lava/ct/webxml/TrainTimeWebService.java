@@ -114,11 +114,11 @@ public class TrainTimeWebService extends BaseWebXmlService {
 		    trainTime.StartStation=node.selectSingleNode("StartStation").getText().trim();
 			trainTime.FirstStation=node.selectSingleNode("FirstStation").getText().trim();
 		    trainTime.LastStation=node.selectSingleNode("FirstStation").getText().trim();
-		    trainTime.ArriveTime=SimpleDateFormatInstance.tryParse(node.selectSingleNode("ArriveTime").getText().trim(), 	REGEXP_TIME);
-		    trainTime.StartTime=SimpleDateFormatInstance.tryParse(node.selectSingleNode("StartTime").getText().trim(), REGEXP_TIME);
-            trainTime.KM=Clazz.valueOf(node.selectSingleNode("KM").getText().trim(), 0);
+		    //trainTime.ArriveTime=SimpleDateFormatInstance.tryParse(node.selectSingleNode("ArriveTime").getText().trim(), 	REGEXP_TIME);
+		    //trainTime.StartTime=SimpleDateFormatInstance.tryParse(node.selectSingleNode("StartTime").getText().trim(), REGEXP_TIME);
+            trainTime.KM=Float.parseFloat(node.selectSingleNode("KM").getText().trim());
 		    trainTime.TrainCode=node.selectSingleNode("TrainCode").getText().trim();
-		    trainTime.UseDate=SimpleDateFormatInstance.tryParse(node.selectSingleNode("UseDate").getText().trim(), REGEXP_TIME_SHORT);
+		    //trainTime.UseDate=SimpleDateFormatInstance.tryParse(node.selectSingleNode("UseDate").getText().trim(), REGEXP_TIME_SHORT);
 		    trainTimes.add(trainTime);
 		}
 		return trainTimes;

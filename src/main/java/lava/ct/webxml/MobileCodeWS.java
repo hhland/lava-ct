@@ -16,7 +16,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-import com.kull.Clazz;
+
 
 
 
@@ -57,7 +57,7 @@ public class MobileCodeWS extends BaseWebXmlService  {
 					String[] s1=str.split(" ");
 					e.provinceName=s1[0];
 					e.cityName=s1[1];
-					e.total=Clazz.valueOf(s1[2],0);
+					e.total=Integer.parseInt(s1[2]);
 			
 				 list.add(e);
     			 }catch(Exception ex){
@@ -116,7 +116,7 @@ public class MobileCodeWS extends BaseWebXmlService  {
 			String[] s1=str.split(" ");
 			this.provinceName=s1[0];
 			this.cityName=s1[1];
-			this.total=Clazz.valueOf(s1[2],0);
+			this.total=Integer.parseInt(s1[2]);
 		}
 
 		public String getProvinceName() {

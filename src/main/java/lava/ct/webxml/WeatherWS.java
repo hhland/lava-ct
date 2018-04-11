@@ -1,6 +1,6 @@
 package lava.ct.webxml;
 
-import com.kull.datetime.DateFormatter;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +11,8 @@ import java.util.Map;
 
 import org.dom4j.Document;
 import org.dom4j.Node;
+
+import lava.ct.instance.SimpleDateFormatInstance;
 
 
 
@@ -96,7 +98,7 @@ public class WeatherWS extends BaseWebXmlService {
     	node=nodes.get(index++);
     	weather.cityId=Integer.valueOf(node.getText().trim());
     	node=nodes.get(index++);
-    	weather.date=DateFormatter.parsez(node.getText().trim());
+    	weather.date=SimpleDateFormatInstance.tryParse(node.getText().trim());
     	node=nodes.get(index++);
     	StringBuffer context=new StringBuffer("");
     	String[] texts=node.getText().substring(node.getText().indexOf('：')).split("；");
