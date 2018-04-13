@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.mysql.jdbc.Driver;
 
-import lava.rt.linq.DataContextSrcGener;
+import lava.ct.linq.DataContextSrcGener;
 
 public class DataContextSrcGenerTest {
 
@@ -20,7 +20,7 @@ public class DataContextSrcGenerTest {
 	@Before
 	public void setUp() throws Exception {
 		Class.forName(Driver.class.getName());
-	    String url="jdbc:mysql://192.168.0.161:3306/blcpara?useUnicode=true&characterEncoding=UTF-8"
+	    String url="jdbc:mysql://192.168.0.161:3306/sakila?useUnicode=true&characterEncoding=UTF-8"
 	    		,user="para_admin"
 	    		,password="nfha_505"
 	    		;
@@ -30,7 +30,7 @@ public class DataContextSrcGenerTest {
 	@Test
 	public void test() throws SQLException {
 		DataContextSrcGener dataContextSrcGener=new DataContextSrcGener(connection);
-		String src=dataContextSrcGener.toSrc(SenDataContext.class,"ID");
+		String src=dataContextSrcGener.toSrc(SenDataContext.class,"sakila");
 		System.out.println(src);
 	}
 

@@ -5,7 +5,11 @@ import java.lang.Integer;
 import java.lang.Float; 
 import java.util.Date; 
 import java.math.BigDecimal; 
+import java.lang.Byte; 
 import lava.rt.linq.Table; 
+import lava.rt.linq.View; 
+import java.io.Serializable; 
+import java.lang.Cloneable; 
 import java.sql.Connection; 
 
 
@@ -13,463 +17,694 @@ public class SenDataContext extends lava.rt.linq.DataContext{
 
 	 public SenDataContext(Connection conn){ super(conn);  } 
 
-	 public final Table<COUNTRY> tableCOUNTRY=createTable(COUNTRY.class,"ID");
-	 public final Table<USED_TO> tableUSED_TO=createTable(USED_TO.class,"ID");
-	 public final Table<DUTY_MODE> tableDUTY_MODE=createTable(DUTY_MODE.class,"ID");
-	 public final Table<TRANSAC> tableTRANSAC=createTable(TRANSAC.class,"ID");
-	 public final Table<PARA_BIZ_TYPE> tablePARA_BIZ_TYPE=createTable(PARA_BIZ_TYPE.class,"ID");
-	 public final Table<UNIT> tableUNIT=createTable(UNIT.class,"ID");
-	 public final Table<TRADE> tableTRADE=createTable(TRADE.class,"ID");
-	 public final Table<PORT> tablePORT=createTable(PORT.class,"ID");
-	 public final Table<COMPLEX> tableCOMPLEX=createTable(COMPLEX.class,"ID");
-	 public final Table<DISTRICT> tableDISTRICT=createTable(DISTRICT.class,"ID");
-	 public final Table<CUSTOMS> tableCUSTOMS=createTable(CUSTOMS.class,"ID");
-	 public final Table<TRANSF> tableTRANSF=createTable(TRANSF.class,"ID");
-	 public final Table<CURR> tableCURR=createTable(CURR.class,"ID");
-	 public final Table<WRAP> tableWRAP=createTable(WRAP.class,"ID");
+	 public final Table<LANGUAGE> tableLANGUAGE=createTable(LANGUAGE.class,"LANGUAGE","LANGUAGE_ID");
+	 public final Table<PAYMENT> tablePAYMENT=createTable(PAYMENT.class,"PAYMENT","PAYMENT_ID");
+	 public final Table<FILM> tableFILM=createTable(FILM.class,"FILM","FILM_ID");
+	 public final Table<FILM_TEXT> tableFILM_TEXT=createTable(FILM_TEXT.class,"FILM_TEXT","FILM_ID");
+	 public final Table<ACTOR> tableACTOR=createTable(ACTOR.class,"ACTOR","ACTOR_ID");
+	 public final Table<CITY> tableCITY=createTable(CITY.class,"CITY","CITY_ID");
+	 public final Table<COUNTRY> tableCOUNTRY=createTable(COUNTRY.class,"COUNTRY","COUNTRY_ID");
+	 public final Table<INVENTORY> tableINVENTORY=createTable(INVENTORY.class,"INVENTORY","INVENTORY_ID");
+	 public final Table<CATEGORY> tableCATEGORY=createTable(CATEGORY.class,"CATEGORY","CATEGORY_ID");
+	 public final Table<ADDRESS> tableADDRESS=createTable(ADDRESS.class,"ADDRESS","ADDRESS_ID");
+	 public final Table<STAFF> tableSTAFF=createTable(STAFF.class,"STAFF","STAFF_ID");
+	 public final Table<STORE> tableSTORE=createTable(STORE.class,"STORE","STORE_ID");
+	 public final Table<CUSTOMER> tableCUSTOMER=createTable(CUSTOMER.class,"CUSTOMER","CUSTOMER_ID");
+	 public final Table<RENTAL> tableRENTAL=createTable(RENTAL.class,"RENTAL","RENTAL_ID");
+	 public final Table<FILM_ACTOR> tableFILM_ACTOR=createTable(FILM_ACTOR.class,"FILM_ACTOR","FILM_ID");
+	 public final Table<FILM_CATEGORY> tableFILM_CATEGORY=createTable(FILM_CATEGORY.class,"FILM_CATEGORY","CATEGORY_ID");
 
 
-	 public  class COUNTRY {
+	 public final View<ACTOR_INFO> viewACTOR_INFO=createView(ACTOR_INFO.class,"ACTOR_INFO");
+	 public final View<FILM_LIST> viewFILM_LIST=createView(FILM_LIST.class,"FILM_LIST");
+	 public final View<SALES_BY_FILM_CATEGORY> viewSALES_BY_FILM_CATEGORY=createView(SALES_BY_FILM_CATEGORY.class,"SALES_BY_FILM_CATEGORY");
+	 public final View<NICER_BUT_SLOWER_FILM_LIST> viewNICER_BUT_SLOWER_FILM_LIST=createView(NICER_BUT_SLOWER_FILM_LIST.class,"NICER_BUT_SLOWER_FILM_LIST");
+	 public final View<CUSTOMER_LIST> viewCUSTOMER_LIST=createView(CUSTOMER_LIST.class,"CUSTOMER_LIST");
+	 public final View<STAFF_LIST> viewSTAFF_LIST=createView(STAFF_LIST.class,"STAFF_LIST");
+	 public final View<SALES_BY_STORE> viewSALES_BY_STORE=createView(SALES_BY_STORE.class,"SALES_BY_STORE");
 
 
-		 private String COUNTRY_CODE ; 
- 		 private String ISO_E ; 
- 		 private String COUN_C_NAME ; 
- 		 private String COUN_E_NAME ; 
- 		 private String ABBR_C ; 
- 		 private String EXAM_MARK ; 
- 		 private String HIGH_LOW ; 
- 		 private String TDS_HIGH_LOW ; 
+	 public  class LANGUAGE implements Serializable,Cloneable {
+		 private Integer LANGUAGE_ID ; 
+ 		 private String NAME ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getCOUNTRY_CODE(){ return this.COUNTRY_CODE; } 
-		 public void setCOUNTRY_CODE(String COUNTRY_CODE ){  this.COUNTRY_CODE=COUNTRY_CODE; } 
+		 public Integer getLANGUAGE_ID(){ return this.LANGUAGE_ID; } 
+		 public void setLANGUAGE_ID(Integer LANGUAGE_ID ){  this.LANGUAGE_ID=LANGUAGE_ID; } 
+		 public String getNAME(){ return this.NAME; } 
+		 public void setNAME(String NAME ){  this.NAME=NAME; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
-		 public String getISO_E(){ return this.ISO_E; } 
-		 public void setISO_E(String ISO_E ){  this.ISO_E=ISO_E; } 
 
-		 public String getCOUN_C_NAME(){ return this.COUN_C_NAME; } 
-		 public void setCOUN_C_NAME(String COUN_C_NAME ){  this.COUN_C_NAME=COUN_C_NAME; } 
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
-		 public String getCOUN_E_NAME(){ return this.COUN_E_NAME; } 
-		 public void setCOUN_E_NAME(String COUN_E_NAME ){  this.COUN_E_NAME=COUN_E_NAME; } 
+		@Override
+		public String toString() {return this.getClass().getName()+":LANGUAGE:"+this.LANGUAGE_ID;}
 
-		 public String getABBR_C(){ return this.ABBR_C; } 
-		 public void setABBR_C(String ABBR_C ){  this.ABBR_C=ABBR_C; } 
+	 } //end LANGUAGE
 
-		 public String getEXAM_MARK(){ return this.EXAM_MARK; } 
-		 public void setEXAM_MARK(String EXAM_MARK ){  this.EXAM_MARK=EXAM_MARK; } 
+	 public  class PAYMENT implements Serializable,Cloneable {
+		 private Integer PAYMENT_ID ; 
+ 		 private Integer CUSTOMER_ID ; 
+ 		 private Integer STAFF_ID ; 
+ 		 private Integer RENTAL_ID ; 
+ 		 private BigDecimal AMOUNT ; 
+ 		 private Date PAYMENT_DATE ; 
+ 		 private Date LAST_UPDATE ; 
+ 
+		 public Integer getPAYMENT_ID(){ return this.PAYMENT_ID; } 
+		 public void setPAYMENT_ID(Integer PAYMENT_ID ){  this.PAYMENT_ID=PAYMENT_ID; } 
+		 public Integer getCUSTOMER_ID(){ return this.CUSTOMER_ID; } 
+		 public void setCUSTOMER_ID(Integer CUSTOMER_ID ){  this.CUSTOMER_ID=CUSTOMER_ID; } 
+		 public Integer getSTAFF_ID(){ return this.STAFF_ID; } 
+		 public void setSTAFF_ID(Integer STAFF_ID ){  this.STAFF_ID=STAFF_ID; } 
+		 public Integer getRENTAL_ID(){ return this.RENTAL_ID; } 
+		 public void setRENTAL_ID(Integer RENTAL_ID ){  this.RENTAL_ID=RENTAL_ID; } 
+		 public BigDecimal getAMOUNT(){ return this.AMOUNT; } 
+		 public void setAMOUNT(BigDecimal AMOUNT ){  this.AMOUNT=AMOUNT; } 
+		 public Date getPAYMENT_DATE(){ return this.PAYMENT_DATE; } 
+		 public void setPAYMENT_DATE(Date PAYMENT_DATE ){  this.PAYMENT_DATE=PAYMENT_DATE; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
-		 public String getHIGH_LOW(){ return this.HIGH_LOW; } 
-		 public void setHIGH_LOW(String HIGH_LOW ){  this.HIGH_LOW=HIGH_LOW; } 
 
-		 public String getTDS_HIGH_LOW(){ return this.TDS_HIGH_LOW; } 
-		 public void setTDS_HIGH_LOW(String TDS_HIGH_LOW ){  this.TDS_HIGH_LOW=TDS_HIGH_LOW; } 
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":PAYMENT:"+this.PAYMENT_ID;}
+
+	 } //end PAYMENT
+
+	 public  class FILM implements Serializable,Cloneable {
+		 private Integer FILM_ID ; 
+ 		 private String TITLE ; 
+ 		 private String DESCRIPTION ; 
+ 		 private Date RELEASE_YEAR ; 
+ 		 private Integer LANGUAGE_ID ; 
+ 		 private Integer ORIGINAL_LANGUAGE_ID ; 
+ 		 private Integer RENTAL_DURATION ; 
+ 		 private BigDecimal RENTAL_RATE ; 
+ 		 private Integer LENGTH ; 
+ 		 private BigDecimal REPLACEMENT_COST ; 
+ 		 private String RATING ; 
+ 		 private String SPECIAL_FEATURES ; 
+ 		 private Date LAST_UPDATE ; 
+ 
+		 public Integer getFILM_ID(){ return this.FILM_ID; } 
+		 public void setFILM_ID(Integer FILM_ID ){  this.FILM_ID=FILM_ID; } 
+		 public String getTITLE(){ return this.TITLE; } 
+		 public void setTITLE(String TITLE ){  this.TITLE=TITLE; } 
+		 public String getDESCRIPTION(){ return this.DESCRIPTION; } 
+		 public void setDESCRIPTION(String DESCRIPTION ){  this.DESCRIPTION=DESCRIPTION; } 
+		 public Date getRELEASE_YEAR(){ return this.RELEASE_YEAR; } 
+		 public void setRELEASE_YEAR(Date RELEASE_YEAR ){  this.RELEASE_YEAR=RELEASE_YEAR; } 
+		 public Integer getLANGUAGE_ID(){ return this.LANGUAGE_ID; } 
+		 public void setLANGUAGE_ID(Integer LANGUAGE_ID ){  this.LANGUAGE_ID=LANGUAGE_ID; } 
+		 public Integer getORIGINAL_LANGUAGE_ID(){ return this.ORIGINAL_LANGUAGE_ID; } 
+		 public void setORIGINAL_LANGUAGE_ID(Integer ORIGINAL_LANGUAGE_ID ){  this.ORIGINAL_LANGUAGE_ID=ORIGINAL_LANGUAGE_ID; } 
+		 public Integer getRENTAL_DURATION(){ return this.RENTAL_DURATION; } 
+		 public void setRENTAL_DURATION(Integer RENTAL_DURATION ){  this.RENTAL_DURATION=RENTAL_DURATION; } 
+		 public BigDecimal getRENTAL_RATE(){ return this.RENTAL_RATE; } 
+		 public void setRENTAL_RATE(BigDecimal RENTAL_RATE ){  this.RENTAL_RATE=RENTAL_RATE; } 
+		 public Integer getLENGTH(){ return this.LENGTH; } 
+		 public void setLENGTH(Integer LENGTH ){  this.LENGTH=LENGTH; } 
+		 public BigDecimal getREPLACEMENT_COST(){ return this.REPLACEMENT_COST; } 
+		 public void setREPLACEMENT_COST(BigDecimal REPLACEMENT_COST ){  this.REPLACEMENT_COST=REPLACEMENT_COST; } 
+		 public String getRATING(){ return this.RATING; } 
+		 public void setRATING(String RATING ){  this.RATING=RATING; } 
+		 public String getSPECIAL_FEATURES(){ return this.SPECIAL_FEATURES; } 
+		 public void setSPECIAL_FEATURES(String SPECIAL_FEATURES ){  this.SPECIAL_FEATURES=SPECIAL_FEATURES; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":FILM:"+this.FILM_ID;}
+
+	 } //end FILM
+
+	 public  class FILM_TEXT implements Serializable,Cloneable {
+		 private Integer FILM_ID ; 
+ 		 private String TITLE ; 
+ 		 private String DESCRIPTION ; 
+ 
+		 public Integer getFILM_ID(){ return this.FILM_ID; } 
+		 public void setFILM_ID(Integer FILM_ID ){  this.FILM_ID=FILM_ID; } 
+		 public String getTITLE(){ return this.TITLE; } 
+		 public void setTITLE(String TITLE ){  this.TITLE=TITLE; } 
+		 public String getDESCRIPTION(){ return this.DESCRIPTION; } 
+		 public void setDESCRIPTION(String DESCRIPTION ){  this.DESCRIPTION=DESCRIPTION; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":FILM_TEXT:"+this.FILM_ID;}
+
+	 } //end FILM_TEXT
+
+	 public  class ACTOR implements Serializable,Cloneable {
+		 private Integer ACTOR_ID ; 
+ 		 private String FIRST_NAME ; 
+ 		 private String LAST_NAME ; 
+ 		 private Date LAST_UPDATE ; 
+ 
+		 public Integer getACTOR_ID(){ return this.ACTOR_ID; } 
+		 public void setACTOR_ID(Integer ACTOR_ID ){  this.ACTOR_ID=ACTOR_ID; } 
+		 public String getFIRST_NAME(){ return this.FIRST_NAME; } 
+		 public void setFIRST_NAME(String FIRST_NAME ){  this.FIRST_NAME=FIRST_NAME; } 
+		 public String getLAST_NAME(){ return this.LAST_NAME; } 
+		 public void setLAST_NAME(String LAST_NAME ){  this.LAST_NAME=LAST_NAME; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":ACTOR:"+this.ACTOR_ID;}
+
+	 } //end ACTOR
+
+	 public  class CUSTOMER_LIST implements Serializable,Cloneable {
+		 private Integer ID ; 
+ 		 private String NAME ; 
+ 		 private String ADDRESS ; 
+ 		 private String ZIP_CODE ; 
+ 		 private String PHONE ; 
+ 		 private String CITY ; 
+ 		 private String COUNTRY ; 
+ 		 private String NOTES ; 
+ 		 private Integer SID ; 
+ 
+		 public Integer getID(){ return this.ID; } 
+		 public void setID(Integer ID ){  this.ID=ID; } 
+		 public String getNAME(){ return this.NAME; } 
+		 public void setNAME(String NAME ){  this.NAME=NAME; } 
+		 public String getADDRESS(){ return this.ADDRESS; } 
+		 public void setADDRESS(String ADDRESS ){  this.ADDRESS=ADDRESS; } 
+		 public String getZIP_CODE(){ return this.ZIP_CODE; } 
+		 public void setZIP_CODE(String ZIP_CODE ){  this.ZIP_CODE=ZIP_CODE; } 
+		 public String getPHONE(){ return this.PHONE; } 
+		 public void setPHONE(String PHONE ){  this.PHONE=PHONE; } 
+		 public String getCITY(){ return this.CITY; } 
+		 public void setCITY(String CITY ){  this.CITY=CITY; } 
+		 public String getCOUNTRY(){ return this.COUNTRY; } 
+		 public void setCOUNTRY(String COUNTRY ){  this.COUNTRY=COUNTRY; } 
+		 public String getNOTES(){ return this.NOTES; } 
+		 public void setNOTES(String NOTES ){  this.NOTES=NOTES; } 
+		 public Integer getSID(){ return this.SID; } 
+		 public void setSID(Integer SID ){  this.SID=SID; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+
+
+	 } //end CUSTOMER_LIST
+
+	 public  class STAFF_LIST implements Serializable,Cloneable {
+		 private Integer ID ; 
+ 		 private String NAME ; 
+ 		 private String ADDRESS ; 
+ 		 private String ZIP_CODE ; 
+ 		 private String PHONE ; 
+ 		 private String CITY ; 
+ 		 private String COUNTRY ; 
+ 		 private Integer SID ; 
+ 
+		 public Integer getID(){ return this.ID; } 
+		 public void setID(Integer ID ){  this.ID=ID; } 
+		 public String getNAME(){ return this.NAME; } 
+		 public void setNAME(String NAME ){  this.NAME=NAME; } 
+		 public String getADDRESS(){ return this.ADDRESS; } 
+		 public void setADDRESS(String ADDRESS ){  this.ADDRESS=ADDRESS; } 
+		 public String getZIP_CODE(){ return this.ZIP_CODE; } 
+		 public void setZIP_CODE(String ZIP_CODE ){  this.ZIP_CODE=ZIP_CODE; } 
+		 public String getPHONE(){ return this.PHONE; } 
+		 public void setPHONE(String PHONE ){  this.PHONE=PHONE; } 
+		 public String getCITY(){ return this.CITY; } 
+		 public void setCITY(String CITY ){  this.CITY=CITY; } 
+		 public String getCOUNTRY(){ return this.COUNTRY; } 
+		 public void setCOUNTRY(String COUNTRY ){  this.COUNTRY=COUNTRY; } 
+		 public Integer getSID(){ return this.SID; } 
+		 public void setSID(Integer SID ){  this.SID=SID; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+
+
+	 } //end STAFF_LIST
+
+	 public  class ACTOR_INFO implements Serializable,Cloneable {
+		 private Integer ACTOR_ID ; 
+ 		 private String FIRST_NAME ; 
+ 		 private String LAST_NAME ; 
+ 		 private String FILM_INFO ; 
+ 
+		 public Integer getACTOR_ID(){ return this.ACTOR_ID; } 
+		 public void setACTOR_ID(Integer ACTOR_ID ){  this.ACTOR_ID=ACTOR_ID; } 
+		 public String getFIRST_NAME(){ return this.FIRST_NAME; } 
+		 public void setFIRST_NAME(String FIRST_NAME ){  this.FIRST_NAME=FIRST_NAME; } 
+		 public String getLAST_NAME(){ return this.LAST_NAME; } 
+		 public void setLAST_NAME(String LAST_NAME ){  this.LAST_NAME=LAST_NAME; } 
+		 public String getFILM_INFO(){ return this.FILM_INFO; } 
+		 public void setFILM_INFO(String FILM_INFO ){  this.FILM_INFO=FILM_INFO; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+
+
+	 } //end ACTOR_INFO
+
+	 public  class FILM_LIST implements Serializable,Cloneable {
+		 private Integer FID ; 
+ 		 private String TITLE ; 
+ 		 private String DESCRIPTION ; 
+ 		 private String CATEGORY ; 
+ 		 private BigDecimal PRICE ; 
+ 		 private Integer LENGTH ; 
+ 		 private String RATING ; 
+ 		 private String ACTORS ; 
+ 
+		 public Integer getFID(){ return this.FID; } 
+		 public void setFID(Integer FID ){  this.FID=FID; } 
+		 public String getTITLE(){ return this.TITLE; } 
+		 public void setTITLE(String TITLE ){  this.TITLE=TITLE; } 
+		 public String getDESCRIPTION(){ return this.DESCRIPTION; } 
+		 public void setDESCRIPTION(String DESCRIPTION ){  this.DESCRIPTION=DESCRIPTION; } 
+		 public String getCATEGORY(){ return this.CATEGORY; } 
+		 public void setCATEGORY(String CATEGORY ){  this.CATEGORY=CATEGORY; } 
+		 public BigDecimal getPRICE(){ return this.PRICE; } 
+		 public void setPRICE(BigDecimal PRICE ){  this.PRICE=PRICE; } 
+		 public Integer getLENGTH(){ return this.LENGTH; } 
+		 public void setLENGTH(Integer LENGTH ){  this.LENGTH=LENGTH; } 
+		 public String getRATING(){ return this.RATING; } 
+		 public void setRATING(String RATING ){  this.RATING=RATING; } 
+		 public String getACTORS(){ return this.ACTORS; } 
+		 public void setACTORS(String ACTORS ){  this.ACTORS=ACTORS; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+
+
+	 } //end FILM_LIST
+
+	 public  class SALES_BY_FILM_CATEGORY implements Serializable,Cloneable {
+		 private String CATEGORY ; 
+ 		 private BigDecimal TOTAL_SALES ; 
+ 
+		 public String getCATEGORY(){ return this.CATEGORY; } 
+		 public void setCATEGORY(String CATEGORY ){  this.CATEGORY=CATEGORY; } 
+		 public BigDecimal getTOTAL_SALES(){ return this.TOTAL_SALES; } 
+		 public void setTOTAL_SALES(BigDecimal TOTAL_SALES ){  this.TOTAL_SALES=TOTAL_SALES; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+
+
+	 } //end SALES_BY_FILM_CATEGORY
+
+	 public  class CITY implements Serializable,Cloneable {
+		 private Integer CITY_ID ; 
+ 		 private String CITY ; 
+ 		 private Integer COUNTRY_ID ; 
+ 		 private Date LAST_UPDATE ; 
+ 
+		 public Integer getCITY_ID(){ return this.CITY_ID; } 
+		 public void setCITY_ID(Integer CITY_ID ){  this.CITY_ID=CITY_ID; } 
+		 public String getCITY(){ return this.CITY; } 
+		 public void setCITY(String CITY ){  this.CITY=CITY; } 
+		 public Integer getCOUNTRY_ID(){ return this.COUNTRY_ID; } 
+		 public void setCOUNTRY_ID(Integer COUNTRY_ID ){  this.COUNTRY_ID=COUNTRY_ID; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":CITY:"+this.CITY_ID;}
+
+	 } //end CITY
+
+	 public  class COUNTRY implements Serializable,Cloneable {
+		 private Integer COUNTRY_ID ; 
+ 		 private String COUNTRY ; 
+ 		 private Date LAST_UPDATE ; 
+ 
+		 public Integer getCOUNTRY_ID(){ return this.COUNTRY_ID; } 
+		 public void setCOUNTRY_ID(Integer COUNTRY_ID ){  this.COUNTRY_ID=COUNTRY_ID; } 
+		 public String getCOUNTRY(){ return this.COUNTRY; } 
+		 public void setCOUNTRY(String COUNTRY ){  this.COUNTRY=COUNTRY; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
+
+
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":COUNTRY:"+this.COUNTRY_ID;}
 
 	 } //end COUNTRY
 
-
-	 public  class USED_TO {
-
-
-		 private String USEDT_CODE ; 
- 		 private String USEDT_NAME ; 
+	 public  class INVENTORY implements Serializable,Cloneable {
+		 private Integer INVENTORY_ID ; 
+ 		 private Integer FILM_ID ; 
+ 		 private Integer STORE_ID ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getUSEDT_CODE(){ return this.USEDT_CODE; } 
-		 public void setUSEDT_CODE(String USEDT_CODE ){  this.USEDT_CODE=USEDT_CODE; } 
-
-		 public String getUSEDT_NAME(){ return this.USEDT_NAME; } 
-		 public void setUSEDT_NAME(String USEDT_NAME ){  this.USEDT_NAME=USEDT_NAME; } 
-
-	 } //end USED_TO
-
-
-	 public  class DUTY_MODE {
+		 public Integer getINVENTORY_ID(){ return this.INVENTORY_ID; } 
+		 public void setINVENTORY_ID(Integer INVENTORY_ID ){  this.INVENTORY_ID=INVENTORY_ID; } 
+		 public Integer getFILM_ID(){ return this.FILM_ID; } 
+		 public void setFILM_ID(Integer FILM_ID ){  this.FILM_ID=FILM_ID; } 
+		 public Integer getSTORE_ID(){ return this.STORE_ID; } 
+		 public void setSTORE_ID(Integer STORE_ID ){  this.STORE_ID=STORE_ID; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
 
-		 private String CODE ; 
- 		 private String VALUE ; 
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":INVENTORY:"+this.INVENTORY_ID;}
+
+	 } //end INVENTORY
+
+	 public  class NICER_BUT_SLOWER_FILM_LIST implements Serializable,Cloneable {
+		 private Integer FID ; 
+ 		 private String TITLE ; 
+ 		 private String DESCRIPTION ; 
+ 		 private String CATEGORY ; 
+ 		 private BigDecimal PRICE ; 
+ 		 private Integer LENGTH ; 
+ 		 private String RATING ; 
+ 		 private String ACTORS ; 
  
-		 public String getCODE(){ return this.CODE; } 
-		 public void setCODE(String CODE ){  this.CODE=CODE; } 
+		 public Integer getFID(){ return this.FID; } 
+		 public void setFID(Integer FID ){  this.FID=FID; } 
+		 public String getTITLE(){ return this.TITLE; } 
+		 public void setTITLE(String TITLE ){  this.TITLE=TITLE; } 
+		 public String getDESCRIPTION(){ return this.DESCRIPTION; } 
+		 public void setDESCRIPTION(String DESCRIPTION ){  this.DESCRIPTION=DESCRIPTION; } 
+		 public String getCATEGORY(){ return this.CATEGORY; } 
+		 public void setCATEGORY(String CATEGORY ){  this.CATEGORY=CATEGORY; } 
+		 public BigDecimal getPRICE(){ return this.PRICE; } 
+		 public void setPRICE(BigDecimal PRICE ){  this.PRICE=PRICE; } 
+		 public Integer getLENGTH(){ return this.LENGTH; } 
+		 public void setLENGTH(Integer LENGTH ){  this.LENGTH=LENGTH; } 
+		 public String getRATING(){ return this.RATING; } 
+		 public void setRATING(String RATING ){  this.RATING=RATING; } 
+		 public String getACTORS(){ return this.ACTORS; } 
+		 public void setACTORS(String ACTORS ){  this.ACTORS=ACTORS; } 
 
-		 public String getVALUE(){ return this.VALUE; } 
-		 public void setVALUE(String VALUE ){  this.VALUE=VALUE; } 
 
-	 } //end DUTY_MODE
-
-
-	 public  class TRANSAC {
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
 
-		 private String TRANS_MODE ; 
- 		 private String TRANS_SPEC ; 
+
+	 } //end NICER_BUT_SLOWER_FILM_LIST
+
+	 public  class CATEGORY implements Serializable,Cloneable {
+		 private Integer CATEGORY_ID ; 
+ 		 private String NAME ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getTRANS_MODE(){ return this.TRANS_MODE; } 
-		 public void setTRANS_MODE(String TRANS_MODE ){  this.TRANS_MODE=TRANS_MODE; } 
-
-		 public String getTRANS_SPEC(){ return this.TRANS_SPEC; } 
-		 public void setTRANS_SPEC(String TRANS_SPEC ){  this.TRANS_SPEC=TRANS_SPEC; } 
-
-	 } //end TRANSAC
-
-
-	 public  class PARA_BIZ_TYPE {
+		 public Integer getCATEGORY_ID(){ return this.CATEGORY_ID; } 
+		 public void setCATEGORY_ID(Integer CATEGORY_ID ){  this.CATEGORY_ID=CATEGORY_ID; } 
+		 public String getNAME(){ return this.NAME; } 
+		 public void setNAME(String NAME ){  this.NAME=NAME; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
 
-		 private String CODE ; 
- 		 private String VALUE ; 
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
+
+		@Override
+		public String toString() {return this.getClass().getName()+":CATEGORY:"+this.CATEGORY_ID;}
+
+	 } //end CATEGORY
+
+	 public  class ADDRESS implements Serializable,Cloneable {
+		 private Integer ADDRESS_ID ; 
+ 		 private String ADDRESS ; 
+ 		 private String ADDRESS2 ; 
+ 		 private String DISTRICT ; 
+ 		 private Integer CITY_ID ; 
+ 		 private String POSTAL_CODE ; 
+ 		 private String PHONE ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getCODE(){ return this.CODE; } 
-		 public void setCODE(String CODE ){  this.CODE=CODE; } 
+		 public Integer getADDRESS_ID(){ return this.ADDRESS_ID; } 
+		 public void setADDRESS_ID(Integer ADDRESS_ID ){  this.ADDRESS_ID=ADDRESS_ID; } 
+		 public String getADDRESS(){ return this.ADDRESS; } 
+		 public void setADDRESS(String ADDRESS ){  this.ADDRESS=ADDRESS; } 
+		 public String getADDRESS2(){ return this.ADDRESS2; } 
+		 public void setADDRESS2(String ADDRESS2 ){  this.ADDRESS2=ADDRESS2; } 
+		 public String getDISTRICT(){ return this.DISTRICT; } 
+		 public void setDISTRICT(String DISTRICT ){  this.DISTRICT=DISTRICT; } 
+		 public Integer getCITY_ID(){ return this.CITY_ID; } 
+		 public void setCITY_ID(Integer CITY_ID ){  this.CITY_ID=CITY_ID; } 
+		 public String getPOSTAL_CODE(){ return this.POSTAL_CODE; } 
+		 public void setPOSTAL_CODE(String POSTAL_CODE ){  this.POSTAL_CODE=POSTAL_CODE; } 
+		 public String getPHONE(){ return this.PHONE; } 
+		 public void setPHONE(String PHONE ){  this.PHONE=PHONE; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
-		 public String getVALUE(){ return this.VALUE; } 
-		 public void setVALUE(String VALUE ){  this.VALUE=VALUE; } 
 
-	 } //end PARA_BIZ_TYPE
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
+		@Override
+		public String toString() {return this.getClass().getName()+":ADDRESS:"+this.ADDRESS_ID;}
 
-	 public  class UNIT {
+	 } //end ADDRESS
 
-
-		 private String UNIT_CODE ; 
- 		 private String UNIT_NAME ; 
- 		 private String CONV_CODE ; 
- 		 private BigDecimal CONV_RATIO ; 
+	 public  class STAFF implements Serializable,Cloneable {
+		 private Integer STAFF_ID ; 
+ 		 private String FIRST_NAME ; 
+ 		 private String LAST_NAME ; 
+ 		 private Integer ADDRESS_ID ; 
+ 		 private Byte PICTURE ; 
+ 		 private String EMAIL ; 
+ 		 private Integer STORE_ID ; 
+ 		 private Byte ACTIVE ; 
+ 		 private String USERNAME ; 
+ 		 private String PASSWORD ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getUNIT_CODE(){ return this.UNIT_CODE; } 
-		 public void setUNIT_CODE(String UNIT_CODE ){  this.UNIT_CODE=UNIT_CODE; } 
+		 public Integer getSTAFF_ID(){ return this.STAFF_ID; } 
+		 public void setSTAFF_ID(Integer STAFF_ID ){  this.STAFF_ID=STAFF_ID; } 
+		 public String getFIRST_NAME(){ return this.FIRST_NAME; } 
+		 public void setFIRST_NAME(String FIRST_NAME ){  this.FIRST_NAME=FIRST_NAME; } 
+		 public String getLAST_NAME(){ return this.LAST_NAME; } 
+		 public void setLAST_NAME(String LAST_NAME ){  this.LAST_NAME=LAST_NAME; } 
+		 public Integer getADDRESS_ID(){ return this.ADDRESS_ID; } 
+		 public void setADDRESS_ID(Integer ADDRESS_ID ){  this.ADDRESS_ID=ADDRESS_ID; } 
+		 public Byte getPICTURE(){ return this.PICTURE; } 
+		 public void setPICTURE(Byte PICTURE ){  this.PICTURE=PICTURE; } 
+		 public String getEMAIL(){ return this.EMAIL; } 
+		 public void setEMAIL(String EMAIL ){  this.EMAIL=EMAIL; } 
+		 public Integer getSTORE_ID(){ return this.STORE_ID; } 
+		 public void setSTORE_ID(Integer STORE_ID ){  this.STORE_ID=STORE_ID; } 
+		 public Byte getACTIVE(){ return this.ACTIVE; } 
+		 public void setACTIVE(Byte ACTIVE ){  this.ACTIVE=ACTIVE; } 
+		 public String getUSERNAME(){ return this.USERNAME; } 
+		 public void setUSERNAME(String USERNAME ){  this.USERNAME=USERNAME; } 
+		 public String getPASSWORD(){ return this.PASSWORD; } 
+		 public void setPASSWORD(String PASSWORD ){  this.PASSWORD=PASSWORD; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
-		 public String getUNIT_NAME(){ return this.UNIT_NAME; } 
-		 public void setUNIT_NAME(String UNIT_NAME ){  this.UNIT_NAME=UNIT_NAME; } 
 
-		 public String getCONV_CODE(){ return this.CONV_CODE; } 
-		 public void setCONV_CODE(String CONV_CODE ){  this.CONV_CODE=CONV_CODE; } 
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
-		 public BigDecimal getCONV_RATIO(){ return this.CONV_RATIO; } 
-		 public void setCONV_RATIO(BigDecimal CONV_RATIO ){  this.CONV_RATIO=CONV_RATIO; } 
+		@Override
+		public String toString() {return this.getClass().getName()+":STAFF:"+this.STAFF_ID;}
 
-	 } //end UNIT
+	 } //end STAFF
 
-
-	 public  class TRADE {
-
-
-		 private String TRADE_MODE ; 
- 		 private String ABBR_TRADE ; 
- 		 private String FULL_TRADE ; 
+	 public  class STORE implements Serializable,Cloneable {
+		 private Integer STORE_ID ; 
+ 		 private Integer MANAGER_STAFF_ID ; 
+ 		 private Integer ADDRESS_ID ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getTRADE_MODE(){ return this.TRADE_MODE; } 
-		 public void setTRADE_MODE(String TRADE_MODE ){  this.TRADE_MODE=TRADE_MODE; } 
-
-		 public String getABBR_TRADE(){ return this.ABBR_TRADE; } 
-		 public void setABBR_TRADE(String ABBR_TRADE ){  this.ABBR_TRADE=ABBR_TRADE; } 
-
-		 public String getFULL_TRADE(){ return this.FULL_TRADE; } 
-		 public void setFULL_TRADE(String FULL_TRADE ){  this.FULL_TRADE=FULL_TRADE; } 
-
-	 } //end TRADE
+		 public Integer getSTORE_ID(){ return this.STORE_ID; } 
+		 public void setSTORE_ID(Integer STORE_ID ){  this.STORE_ID=STORE_ID; } 
+		 public Integer getMANAGER_STAFF_ID(){ return this.MANAGER_STAFF_ID; } 
+		 public void setMANAGER_STAFF_ID(Integer MANAGER_STAFF_ID ){  this.MANAGER_STAFF_ID=MANAGER_STAFF_ID; } 
+		 public Integer getADDRESS_ID(){ return this.ADDRESS_ID; } 
+		 public void setADDRESS_ID(Integer ADDRESS_ID ){  this.ADDRESS_ID=ADDRESS_ID; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
 
-	 public  class PORT {
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
+		@Override
+		public String toString() {return this.getClass().getName()+":STORE:"+this.STORE_ID;}
 
-		 private String PORT_CODE ; 
- 		 private String COUNTRY_CODE ; 
- 		 private String PORT_C_NAME ; 
- 		 private String PORT_E_NAME ; 
+	 } //end STORE
+
+	 public  class CUSTOMER implements Serializable,Cloneable {
+		 private Integer CUSTOMER_ID ; 
+ 		 private Integer STORE_ID ; 
+ 		 private String FIRST_NAME ; 
+ 		 private String LAST_NAME ; 
+ 		 private String EMAIL ; 
+ 		 private Integer ADDRESS_ID ; 
+ 		 private Byte ACTIVE ; 
+ 		 private Date CREATE_DATE ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getPORT_CODE(){ return this.PORT_CODE; } 
-		 public void setPORT_CODE(String PORT_CODE ){  this.PORT_CODE=PORT_CODE; } 
+		 public Integer getCUSTOMER_ID(){ return this.CUSTOMER_ID; } 
+		 public void setCUSTOMER_ID(Integer CUSTOMER_ID ){  this.CUSTOMER_ID=CUSTOMER_ID; } 
+		 public Integer getSTORE_ID(){ return this.STORE_ID; } 
+		 public void setSTORE_ID(Integer STORE_ID ){  this.STORE_ID=STORE_ID; } 
+		 public String getFIRST_NAME(){ return this.FIRST_NAME; } 
+		 public void setFIRST_NAME(String FIRST_NAME ){  this.FIRST_NAME=FIRST_NAME; } 
+		 public String getLAST_NAME(){ return this.LAST_NAME; } 
+		 public void setLAST_NAME(String LAST_NAME ){  this.LAST_NAME=LAST_NAME; } 
+		 public String getEMAIL(){ return this.EMAIL; } 
+		 public void setEMAIL(String EMAIL ){  this.EMAIL=EMAIL; } 
+		 public Integer getADDRESS_ID(){ return this.ADDRESS_ID; } 
+		 public void setADDRESS_ID(Integer ADDRESS_ID ){  this.ADDRESS_ID=ADDRESS_ID; } 
+		 public Byte getACTIVE(){ return this.ACTIVE; } 
+		 public void setACTIVE(Byte ACTIVE ){  this.ACTIVE=ACTIVE; } 
+		 public Date getCREATE_DATE(){ return this.CREATE_DATE; } 
+		 public void setCREATE_DATE(Date CREATE_DATE ){  this.CREATE_DATE=CREATE_DATE; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
-		 public String getCOUNTRY_CODE(){ return this.COUNTRY_CODE; } 
-		 public void setCOUNTRY_CODE(String COUNTRY_CODE ){  this.COUNTRY_CODE=COUNTRY_CODE; } 
 
-		 public String getPORT_C_NAME(){ return this.PORT_C_NAME; } 
-		 public void setPORT_C_NAME(String PORT_C_NAME ){  this.PORT_C_NAME=PORT_C_NAME; } 
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
-		 public String getPORT_E_NAME(){ return this.PORT_E_NAME; } 
-		 public void setPORT_E_NAME(String PORT_E_NAME ){  this.PORT_E_NAME=PORT_E_NAME; } 
+		@Override
+		public String toString() {return this.getClass().getName()+":CUSTOMER:"+this.CUSTOMER_ID;}
 
-	 } //end PORT
+	 } //end CUSTOMER
 
-
-	 public  class COMPLEX {
-
-
-		 private String CODE_TS ; 
- 		 private Date BEGIN_DATE ; 
- 		 private String LSJM_FLAG ; 
- 		 private Date END_DATE ; 
- 		 private String G_NAME ; 
- 		 private String TARIFF_MARK ; 
- 		 private String DUTY_TYPE ; 
- 		 private BigDecimal LOW_RATE ; 
- 		 private BigDecimal HIGH_RATE ; 
- 		 private BigDecimal COM_V_LOW_RATE ; 
- 		 private BigDecimal COM_V_HIGH_RATE ; 
- 		 private BigDecimal COM_Q_LOW_RATE ; 
- 		 private BigDecimal COM_Q_HIGH_RATE ; 
- 		 private String COM_UNIT_FLAG ; 
- 		 private BigDecimal COM_LOW_CTL_PRICE ; 
- 		 private BigDecimal COM_HIGH_CTL_PRICE ; 
- 		 private String COM_CTL_CURR ; 
- 		 private BigDecimal OUT_RATE ; 
- 		 private String REG_TYPE ; 
- 		 private BigDecimal REG_RATE ; 
- 		 private BigDecimal REG_Q_LOW_RATE ; 
- 		 private BigDecimal REG_Q_HIGH_RATE ; 
- 		 private String REG_UNIT_FLAG ; 
- 		 private BigDecimal REG_CTL_PRICE ; 
- 		 private String REG_CTL_CURR ; 
- 		 private String TAX_TYPE ; 
- 		 private BigDecimal TAX_RATE ; 
- 		 private BigDecimal TAIWAN_RATE ; 
- 		 private String OTHER_TYPE ; 
- 		 private BigDecimal OTHER_RATE ; 
- 		 private String UNIT_1 ; 
- 		 private String UNIT_2 ; 
- 		 private BigDecimal ILOW_PRICE ; 
- 		 private BigDecimal IHIGH_PRICE ; 
- 		 private BigDecimal ELOW_PRICE ; 
- 		 private BigDecimal EHIGH_PRICE ; 
- 		 private BigDecimal MAX_IN ; 
- 		 private BigDecimal MAX_OUT ; 
- 		 private String CONTROL_MARK ; 
- 		 private String CHK_PRICE ; 
- 		 private String NOTE_S ; 
- 		 private String OUT_DUTY_TYPE ; 
- 		 private String OUT_COM_UNIT_FLAG ; 
- 		 private BigDecimal OUT_COM_Q_RATE ; 
+	 public  class RENTAL implements Serializable,Cloneable {
+		 private Integer RENTAL_ID ; 
+ 		 private Date RENTAL_DATE ; 
+ 		 private Integer INVENTORY_ID ; 
+ 		 private Integer CUSTOMER_ID ; 
+ 		 private Date RETURN_DATE ; 
+ 		 private Integer STAFF_ID ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getCODE_TS(){ return this.CODE_TS; } 
-		 public void setCODE_TS(String CODE_TS ){  this.CODE_TS=CODE_TS; } 
-
-		 public Date getBEGIN_DATE(){ return this.BEGIN_DATE; } 
-		 public void setBEGIN_DATE(Date BEGIN_DATE ){  this.BEGIN_DATE=BEGIN_DATE; } 
-
-		 public String getLSJM_FLAG(){ return this.LSJM_FLAG; } 
-		 public void setLSJM_FLAG(String LSJM_FLAG ){  this.LSJM_FLAG=LSJM_FLAG; } 
-
-		 public Date getEND_DATE(){ return this.END_DATE; } 
-		 public void setEND_DATE(Date END_DATE ){  this.END_DATE=END_DATE; } 
-
-		 public String getG_NAME(){ return this.G_NAME; } 
-		 public void setG_NAME(String G_NAME ){  this.G_NAME=G_NAME; } 
-
-		 public String getTARIFF_MARK(){ return this.TARIFF_MARK; } 
-		 public void setTARIFF_MARK(String TARIFF_MARK ){  this.TARIFF_MARK=TARIFF_MARK; } 
-
-		 public String getDUTY_TYPE(){ return this.DUTY_TYPE; } 
-		 public void setDUTY_TYPE(String DUTY_TYPE ){  this.DUTY_TYPE=DUTY_TYPE; } 
-
-		 public BigDecimal getLOW_RATE(){ return this.LOW_RATE; } 
-		 public void setLOW_RATE(BigDecimal LOW_RATE ){  this.LOW_RATE=LOW_RATE; } 
-
-		 public BigDecimal getHIGH_RATE(){ return this.HIGH_RATE; } 
-		 public void setHIGH_RATE(BigDecimal HIGH_RATE ){  this.HIGH_RATE=HIGH_RATE; } 
-
-		 public BigDecimal getCOM_V_LOW_RATE(){ return this.COM_V_LOW_RATE; } 
-		 public void setCOM_V_LOW_RATE(BigDecimal COM_V_LOW_RATE ){  this.COM_V_LOW_RATE=COM_V_LOW_RATE; } 
-
-		 public BigDecimal getCOM_V_HIGH_RATE(){ return this.COM_V_HIGH_RATE; } 
-		 public void setCOM_V_HIGH_RATE(BigDecimal COM_V_HIGH_RATE ){  this.COM_V_HIGH_RATE=COM_V_HIGH_RATE; } 
-
-		 public BigDecimal getCOM_Q_LOW_RATE(){ return this.COM_Q_LOW_RATE; } 
-		 public void setCOM_Q_LOW_RATE(BigDecimal COM_Q_LOW_RATE ){  this.COM_Q_LOW_RATE=COM_Q_LOW_RATE; } 
-
-		 public BigDecimal getCOM_Q_HIGH_RATE(){ return this.COM_Q_HIGH_RATE; } 
-		 public void setCOM_Q_HIGH_RATE(BigDecimal COM_Q_HIGH_RATE ){  this.COM_Q_HIGH_RATE=COM_Q_HIGH_RATE; } 
-
-		 public String getCOM_UNIT_FLAG(){ return this.COM_UNIT_FLAG; } 
-		 public void setCOM_UNIT_FLAG(String COM_UNIT_FLAG ){  this.COM_UNIT_FLAG=COM_UNIT_FLAG; } 
-
-		 public BigDecimal getCOM_LOW_CTL_PRICE(){ return this.COM_LOW_CTL_PRICE; } 
-		 public void setCOM_LOW_CTL_PRICE(BigDecimal COM_LOW_CTL_PRICE ){  this.COM_LOW_CTL_PRICE=COM_LOW_CTL_PRICE; } 
-
-		 public BigDecimal getCOM_HIGH_CTL_PRICE(){ return this.COM_HIGH_CTL_PRICE; } 
-		 public void setCOM_HIGH_CTL_PRICE(BigDecimal COM_HIGH_CTL_PRICE ){  this.COM_HIGH_CTL_PRICE=COM_HIGH_CTL_PRICE; } 
-
-		 public String getCOM_CTL_CURR(){ return this.COM_CTL_CURR; } 
-		 public void setCOM_CTL_CURR(String COM_CTL_CURR ){  this.COM_CTL_CURR=COM_CTL_CURR; } 
-
-		 public BigDecimal getOUT_RATE(){ return this.OUT_RATE; } 
-		 public void setOUT_RATE(BigDecimal OUT_RATE ){  this.OUT_RATE=OUT_RATE; } 
-
-		 public String getREG_TYPE(){ return this.REG_TYPE; } 
-		 public void setREG_TYPE(String REG_TYPE ){  this.REG_TYPE=REG_TYPE; } 
-
-		 public BigDecimal getREG_RATE(){ return this.REG_RATE; } 
-		 public void setREG_RATE(BigDecimal REG_RATE ){  this.REG_RATE=REG_RATE; } 
-
-		 public BigDecimal getREG_Q_LOW_RATE(){ return this.REG_Q_LOW_RATE; } 
-		 public void setREG_Q_LOW_RATE(BigDecimal REG_Q_LOW_RATE ){  this.REG_Q_LOW_RATE=REG_Q_LOW_RATE; } 
-
-		 public BigDecimal getREG_Q_HIGH_RATE(){ return this.REG_Q_HIGH_RATE; } 
-		 public void setREG_Q_HIGH_RATE(BigDecimal REG_Q_HIGH_RATE ){  this.REG_Q_HIGH_RATE=REG_Q_HIGH_RATE; } 
-
-		 public String getREG_UNIT_FLAG(){ return this.REG_UNIT_FLAG; } 
-		 public void setREG_UNIT_FLAG(String REG_UNIT_FLAG ){  this.REG_UNIT_FLAG=REG_UNIT_FLAG; } 
-
-		 public BigDecimal getREG_CTL_PRICE(){ return this.REG_CTL_PRICE; } 
-		 public void setREG_CTL_PRICE(BigDecimal REG_CTL_PRICE ){  this.REG_CTL_PRICE=REG_CTL_PRICE; } 
-
-		 public String getREG_CTL_CURR(){ return this.REG_CTL_CURR; } 
-		 public void setREG_CTL_CURR(String REG_CTL_CURR ){  this.REG_CTL_CURR=REG_CTL_CURR; } 
-
-		 public String getTAX_TYPE(){ return this.TAX_TYPE; } 
-		 public void setTAX_TYPE(String TAX_TYPE ){  this.TAX_TYPE=TAX_TYPE; } 
-
-		 public BigDecimal getTAX_RATE(){ return this.TAX_RATE; } 
-		 public void setTAX_RATE(BigDecimal TAX_RATE ){  this.TAX_RATE=TAX_RATE; } 
-
-		 public BigDecimal getTAIWAN_RATE(){ return this.TAIWAN_RATE; } 
-		 public void setTAIWAN_RATE(BigDecimal TAIWAN_RATE ){  this.TAIWAN_RATE=TAIWAN_RATE; } 
-
-		 public String getOTHER_TYPE(){ return this.OTHER_TYPE; } 
-		 public void setOTHER_TYPE(String OTHER_TYPE ){  this.OTHER_TYPE=OTHER_TYPE; } 
-
-		 public BigDecimal getOTHER_RATE(){ return this.OTHER_RATE; } 
-		 public void setOTHER_RATE(BigDecimal OTHER_RATE ){  this.OTHER_RATE=OTHER_RATE; } 
-
-		 public String getUNIT_1(){ return this.UNIT_1; } 
-		 public void setUNIT_1(String UNIT_1 ){  this.UNIT_1=UNIT_1; } 
-
-		 public String getUNIT_2(){ return this.UNIT_2; } 
-		 public void setUNIT_2(String UNIT_2 ){  this.UNIT_2=UNIT_2; } 
-
-		 public BigDecimal getILOW_PRICE(){ return this.ILOW_PRICE; } 
-		 public void setILOW_PRICE(BigDecimal ILOW_PRICE ){  this.ILOW_PRICE=ILOW_PRICE; } 
-
-		 public BigDecimal getIHIGH_PRICE(){ return this.IHIGH_PRICE; } 
-		 public void setIHIGH_PRICE(BigDecimal IHIGH_PRICE ){  this.IHIGH_PRICE=IHIGH_PRICE; } 
-
-		 public BigDecimal getELOW_PRICE(){ return this.ELOW_PRICE; } 
-		 public void setELOW_PRICE(BigDecimal ELOW_PRICE ){  this.ELOW_PRICE=ELOW_PRICE; } 
-
-		 public BigDecimal getEHIGH_PRICE(){ return this.EHIGH_PRICE; } 
-		 public void setEHIGH_PRICE(BigDecimal EHIGH_PRICE ){  this.EHIGH_PRICE=EHIGH_PRICE; } 
-
-		 public BigDecimal getMAX_IN(){ return this.MAX_IN; } 
-		 public void setMAX_IN(BigDecimal MAX_IN ){  this.MAX_IN=MAX_IN; } 
-
-		 public BigDecimal getMAX_OUT(){ return this.MAX_OUT; } 
-		 public void setMAX_OUT(BigDecimal MAX_OUT ){  this.MAX_OUT=MAX_OUT; } 
-
-		 public String getCONTROL_MARK(){ return this.CONTROL_MARK; } 
-		 public void setCONTROL_MARK(String CONTROL_MARK ){  this.CONTROL_MARK=CONTROL_MARK; } 
-
-		 public String getCHK_PRICE(){ return this.CHK_PRICE; } 
-		 public void setCHK_PRICE(String CHK_PRICE ){  this.CHK_PRICE=CHK_PRICE; } 
-
-		 public String getNOTE_S(){ return this.NOTE_S; } 
-		 public void setNOTE_S(String NOTE_S ){  this.NOTE_S=NOTE_S; } 
-
-		 public String getOUT_DUTY_TYPE(){ return this.OUT_DUTY_TYPE; } 
-		 public void setOUT_DUTY_TYPE(String OUT_DUTY_TYPE ){  this.OUT_DUTY_TYPE=OUT_DUTY_TYPE; } 
-
-		 public String getOUT_COM_UNIT_FLAG(){ return this.OUT_COM_UNIT_FLAG; } 
-		 public void setOUT_COM_UNIT_FLAG(String OUT_COM_UNIT_FLAG ){  this.OUT_COM_UNIT_FLAG=OUT_COM_UNIT_FLAG; } 
-
-		 public BigDecimal getOUT_COM_Q_RATE(){ return this.OUT_COM_Q_RATE; } 
-		 public void setOUT_COM_Q_RATE(BigDecimal OUT_COM_Q_RATE ){  this.OUT_COM_Q_RATE=OUT_COM_Q_RATE; } 
-
-	 } //end COMPLEX
+		 public Integer getRENTAL_ID(){ return this.RENTAL_ID; } 
+		 public void setRENTAL_ID(Integer RENTAL_ID ){  this.RENTAL_ID=RENTAL_ID; } 
+		 public Date getRENTAL_DATE(){ return this.RENTAL_DATE; } 
+		 public void setRENTAL_DATE(Date RENTAL_DATE ){  this.RENTAL_DATE=RENTAL_DATE; } 
+		 public Integer getINVENTORY_ID(){ return this.INVENTORY_ID; } 
+		 public void setINVENTORY_ID(Integer INVENTORY_ID ){  this.INVENTORY_ID=INVENTORY_ID; } 
+		 public Integer getCUSTOMER_ID(){ return this.CUSTOMER_ID; } 
+		 public void setCUSTOMER_ID(Integer CUSTOMER_ID ){  this.CUSTOMER_ID=CUSTOMER_ID; } 
+		 public Date getRETURN_DATE(){ return this.RETURN_DATE; } 
+		 public void setRETURN_DATE(Date RETURN_DATE ){  this.RETURN_DATE=RETURN_DATE; } 
+		 public Integer getSTAFF_ID(){ return this.STAFF_ID; } 
+		 public void setSTAFF_ID(Integer STAFF_ID ){  this.STAFF_ID=STAFF_ID; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
 
-	 public  class DISTRICT {
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
+		@Override
+		public String toString() {return this.getClass().getName()+":RENTAL:"+this.RENTAL_ID;}
 
-		 private String DISTRICT_CODE ; 
- 		 private String DISTRICT_NAME ; 
- 		 private String ABBR_DIST ; 
- 		 private String DISTRICT_TYPE ; 
+	 } //end RENTAL
+
+	 public  class FILM_ACTOR implements Serializable,Cloneable {
+		 private Integer ACTOR_ID ; 
+ 		 private Integer FILM_ID ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getDISTRICT_CODE(){ return this.DISTRICT_CODE; } 
-		 public void setDISTRICT_CODE(String DISTRICT_CODE ){  this.DISTRICT_CODE=DISTRICT_CODE; } 
-
-		 public String getDISTRICT_NAME(){ return this.DISTRICT_NAME; } 
-		 public void setDISTRICT_NAME(String DISTRICT_NAME ){  this.DISTRICT_NAME=DISTRICT_NAME; } 
-
-		 public String getABBR_DIST(){ return this.ABBR_DIST; } 
-		 public void setABBR_DIST(String ABBR_DIST ){  this.ABBR_DIST=ABBR_DIST; } 
-
-		 public String getDISTRICT_TYPE(){ return this.DISTRICT_TYPE; } 
-		 public void setDISTRICT_TYPE(String DISTRICT_TYPE ){  this.DISTRICT_TYPE=DISTRICT_TYPE; } 
-
-	 } //end DISTRICT
+		 public Integer getACTOR_ID(){ return this.ACTOR_ID; } 
+		 public void setACTOR_ID(Integer ACTOR_ID ){  this.ACTOR_ID=ACTOR_ID; } 
+		 public Integer getFILM_ID(){ return this.FILM_ID; } 
+		 public void setFILM_ID(Integer FILM_ID ){  this.FILM_ID=FILM_ID; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
 
-	 public  class CUSTOMS {
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
+		@Override
+		public String toString() {return this.getClass().getName()+":FILM_ACTOR:"+this.FILM_ID;}
 
-		 private String CUSTOMS_CODE ; 
- 		 private String CUSTOMS_NAME ; 
- 		 private String ABBR_CUST ; 
+	 } //end FILM_ACTOR
+
+	 public  class FILM_CATEGORY implements Serializable,Cloneable {
+		 private Integer FILM_ID ; 
+ 		 private Integer CATEGORY_ID ; 
+ 		 private Date LAST_UPDATE ; 
  
-		 public String getCUSTOMS_CODE(){ return this.CUSTOMS_CODE; } 
-		 public void setCUSTOMS_CODE(String CUSTOMS_CODE ){  this.CUSTOMS_CODE=CUSTOMS_CODE; } 
-
-		 public String getCUSTOMS_NAME(){ return this.CUSTOMS_NAME; } 
-		 public void setCUSTOMS_NAME(String CUSTOMS_NAME ){  this.CUSTOMS_NAME=CUSTOMS_NAME; } 
-
-		 public String getABBR_CUST(){ return this.ABBR_CUST; } 
-		 public void setABBR_CUST(String ABBR_CUST ){  this.ABBR_CUST=ABBR_CUST; } 
-
-	 } //end CUSTOMS
+		 public Integer getFILM_ID(){ return this.FILM_ID; } 
+		 public void setFILM_ID(Integer FILM_ID ){  this.FILM_ID=FILM_ID; } 
+		 public Integer getCATEGORY_ID(){ return this.CATEGORY_ID; } 
+		 public void setCATEGORY_ID(Integer CATEGORY_ID ){  this.CATEGORY_ID=CATEGORY_ID; } 
+		 public Date getLAST_UPDATE(){ return this.LAST_UPDATE; } 
+		 public void setLAST_UPDATE(Date LAST_UPDATE ){  this.LAST_UPDATE=LAST_UPDATE; } 
 
 
-	 public  class TRANSF {
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
+		@Override
+		public String toString() {return this.getClass().getName()+":FILM_CATEGORY:"+this.CATEGORY_ID;}
 
-		 private String TRAF_CODE ; 
- 		 private String TRAF_SPEC ; 
+	 } //end FILM_CATEGORY
+
+	 public  class SALES_BY_STORE implements Serializable,Cloneable {
+		 private String STORE ; 
+ 		 private String MANAGER ; 
+ 		 private BigDecimal TOTAL_SALES ; 
  
-		 public String getTRAF_CODE(){ return this.TRAF_CODE; } 
-		 public void setTRAF_CODE(String TRAF_CODE ){  this.TRAF_CODE=TRAF_CODE; } 
-
-		 public String getTRAF_SPEC(){ return this.TRAF_SPEC; } 
-		 public void setTRAF_SPEC(String TRAF_SPEC ){  this.TRAF_SPEC=TRAF_SPEC; } 
-
-	 } //end TRANSF
-
-
-	 public  class CURR {
+		 public String getSTORE(){ return this.STORE; } 
+		 public void setSTORE(String STORE ){  this.STORE=STORE; } 
+		 public String getMANAGER(){ return this.MANAGER; } 
+		 public void setMANAGER(String MANAGER ){  this.MANAGER=MANAGER; } 
+		 public BigDecimal getTOTAL_SALES(){ return this.TOTAL_SALES; } 
+		 public void setTOTAL_SALES(BigDecimal TOTAL_SALES ){  this.TOTAL_SALES=TOTAL_SALES; } 
 
 
-		 private String CURR_CODE ; 
- 		 private String CURR_SYMB ; 
- 		 private String ISO_CURR ; 
- 		 private String CURR_NAME ; 
- 
-		 public String getCURR_CODE(){ return this.CURR_CODE; } 
-		 public void setCURR_CODE(String CURR_CODE ){  this.CURR_CODE=CURR_CODE; } 
-
-		 public String getCURR_SYMB(){ return this.CURR_SYMB; } 
-		 public void setCURR_SYMB(String CURR_SYMB ){  this.CURR_SYMB=CURR_SYMB; } 
-
-		 public String getISO_CURR(){ return this.ISO_CURR; } 
-		 public void setISO_CURR(String ISO_CURR ){  this.ISO_CURR=ISO_CURR; } 
-
-		 public String getCURR_NAME(){ return this.CURR_NAME; } 
-		 public void setCURR_NAME(String CURR_NAME ){  this.CURR_NAME=CURR_NAME; } 
-
-	 } //end CURR
+		@Override
+		public boolean equals(Object obj) {return this.toString().equals(obj.toString());} 
 
 
-	 public  class WRAP {
 
-
-		 private String WRAP_CODE ; 
- 		 private String WRAP_NAME ; 
- 
-		 public String getWRAP_CODE(){ return this.WRAP_CODE; } 
-		 public void setWRAP_CODE(String WRAP_CODE ){  this.WRAP_CODE=WRAP_CODE; } 
-
-		 public String getWRAP_NAME(){ return this.WRAP_NAME; } 
-		 public void setWRAP_NAME(String WRAP_NAME ){  this.WRAP_NAME=WRAP_NAME; } 
-
-	 } //end WRAP
-
+	 } //end SALES_BY_STORE
 
 
 
