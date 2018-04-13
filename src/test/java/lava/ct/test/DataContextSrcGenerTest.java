@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.mysql.jdbc.Driver;
 
-import lava.ct.linq.DataContextSrcGener;
+import lava.ct.src.DataContextSrcGener;
 
 public class DataContextSrcGenerTest {
 
