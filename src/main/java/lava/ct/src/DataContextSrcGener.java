@@ -21,7 +21,7 @@ import lava.rt.linq.DataContext;
 import lava.rt.linq.Table;
 import lava.rt.linq.View;
 
-public final class DataContextSrcGener   {
+public abstract class DataContextSrcGener   {
 
 	protected Connection connection;
 	
@@ -106,31 +106,10 @@ public final class DataContextSrcGener   {
 		return tables;
 	}
 	
-	public Set<String> loadViews(String databaseName) throws SQLException{
-		Set<String> tables=new HashSet<String>();
-		String sql="select table_name from information_schema.`VIEWS` where TABLE_SCHEMA='"+databaseName+"'";
-		PreparedStatement preparedStatement= connection.prepareStatement(sql);
-		ResultSet resultSet=preparedStatement.executeQuery();
-		while(resultSet.next()) {
-		   String table=resultSet.getString(1).toUpperCase();
-		   tables.add(table);
-		}
-		return tables;
-	}
+	public abstract Set<String> loadViews(String databaseName) throws SQLException;
 	
 	
-	public Map<String,String> loadTablesPks(String databaseName) throws SQLException{
-		Map<String,String> tablePks=new HashMap<String,String>();
-		String sql="select table_name,column_name from information_schema.`COLUMNS` where TABLE_SCHEMA='"+databaseName+"' and COLUMN_KEY='PRI'";
-		PreparedStatement preparedStatement= connection.prepareStatement(sql);
-		ResultSet resultSet=preparedStatement.executeQuery();
-		while(resultSet.next()) {
-		   String table=resultSet.getString(1).toUpperCase();
-		   String pkName=resultSet.getString(2).toUpperCase();
-		   tablePks.put(table, pkName);
-		}
-		return tablePks;
-	}
+	public abstract Map<String,String> loadTablesPks(String databaseName) throws SQLException;
 	
 	
 	public class TableSrc{

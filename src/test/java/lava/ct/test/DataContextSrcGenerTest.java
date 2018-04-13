@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.mysql.jdbc.Driver;
 
 import lava.ct.src.DataContextSrcGener;
+import lava.ct.src.MySQLDataContextSrcGener;
 
 public class DataContextSrcGenerTest {
 
@@ -29,7 +30,7 @@ public class DataContextSrcGenerTest {
 
 	@Test
 	public void test() throws SQLException {
-		DataContextSrcGener dataContextSrcGener=new DataContextSrcGener(connection);
+		DataContextSrcGener dataContextSrcGener=new MySQLDataContextSrcGener(connection);
 		String src=dataContextSrcGener.toSrc(SenDataContext.class,"sakila");
 		System.out.println(src);
 	}
