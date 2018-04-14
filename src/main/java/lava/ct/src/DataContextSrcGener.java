@@ -204,9 +204,11 @@ public final class DataContextSrcGener   {
 		STRING(String.class,Types.VARCHAR,Types.CHAR,Types.NVARCHAR,Types.LONGNVARCHAR,Types.NCHAR,Types.LONGVARCHAR)
 		,INT(Integer.class,Types.INTEGER,Types.SMALLINT,Types.BIGINT,Types.TINYINT)
 		,FLOAT(Float.class,Types.FLOAT)
+		,DOUBLE(Double.class,Types.DOUBLE)
 		,DATE(Date.class,Types.DATE,Types.TIME,Types.TIMESTAMP)
-		,DECIMAL(BigDecimal.class,Types.DECIMAL)
+		,DECIMAL(BigDecimal.class,Types.DECIMAL,Types.NUMERIC)
 		,BIN(Byte.class,Types.LONGVARBINARY,Types.BIT)
+		,BOOLEAN(Boolean.class,Types.BOOLEAN)
 		;
 		
 		private Class fieldCls;
@@ -218,7 +220,6 @@ public final class DataContextSrcGener   {
 			for(int type:types) {
 				sqlTypes.add(type);
 			}
-			
 		}
 		
 		public static Class toClass(int type) {
