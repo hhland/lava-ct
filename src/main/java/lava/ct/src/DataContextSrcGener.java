@@ -16,12 +16,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.sql.DataSource;
+
 import lava.rt.instance.MethodInstance;
 import lava.rt.linq.DataContext;
 import lava.rt.linq.Table;
 import lava.rt.linq.View;
 
-public final class DataContextSrcGener   {
+public abstract class DataContextSrcGener   {
 
 	protected Connection connection;
 	
@@ -41,13 +43,14 @@ public final class DataContextSrcGener   {
 		.append("import "+ Serializable.class.getName()+"; \n")
 		.append("import "+ Cloneable.class.getName()+"; \n")
 
-		.append("import "+Connection.class.getName()+"; \n\n\n")
+		.append("import "+DataSource.class.getName()+"; \n\n\n")
 		;
 		
 		src.append("public class "+cls.getSimpleName()+" extends "+DataContext.class.getName()+"{ \n\n");
 		
-		
-		src.append("\t public "+cls.getSimpleName()+"("+Connection.class.getSimpleName()+" conn){ super(conn);  } \n\n");
+		src.append("\t@Override\r\n" + 
+				"\tprotected Class thisClass() {return this.getClass();\n\n")
+		.append("\t public "+cls.getSimpleName()+"("+DataSource.class.getSimpleName()+" dataSource){ super(dataSource);  } \n\n");
 		
 		Set<String> tables=loadTables(),views=loadViews(databaseName);
 		Map<String, String> tablesPks=loadTablesPks(databaseName);
@@ -106,31 +109,10 @@ public final class DataContextSrcGener   {
 		return tables;
 	}
 	
-	public Set<String> loadViews(String databaseName) throws SQLException{
-		Set<String> tables=new HashSet<String>();
-		String sql="select table_name from information_schema.`VIEWS` where TABLE_SCHEMA='"+databaseName+"'";
-		PreparedStatement preparedStatement= connection.prepareStatement(sql);
-		ResultSet resultSet=preparedStatement.executeQuery();
-		while(resultSet.next()) {
-		   String table=resultSet.getString(1).toUpperCase();
-		   tables.add(table);
-		}
-		return tables;
-	}
+	public abstract Set<String> loadViews(String databaseName) throws SQLException;
 	
 	
-	public Map<String,String> loadTablesPks(String databaseName) throws SQLException{
-		Map<String,String> tablePks=new HashMap<String,String>();
-		String sql="select table_name,column_name from information_schema.`COLUMNS` where TABLE_SCHEMA='"+databaseName+"' and COLUMN_KEY='PRI'";
-		PreparedStatement preparedStatement= connection.prepareStatement(sql);
-		ResultSet resultSet=preparedStatement.executeQuery();
-		while(resultSet.next()) {
-		   String table=resultSet.getString(1).toUpperCase();
-		   String pkName=resultSet.getString(2).toUpperCase();
-		   tablePks.put(table, pkName);
-		}
-		return tablePks;
-	}
+	public abstract Map<String,String> loadTablesPks(String databaseName) throws SQLException;
 	
 	
 	public class TableSrc{
