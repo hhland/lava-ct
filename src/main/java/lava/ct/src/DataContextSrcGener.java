@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.sql.DataSource;
+
 import lava.rt.instance.MethodInstance;
 import lava.rt.linq.DataContext;
 import lava.rt.linq.Table;
@@ -41,13 +43,14 @@ public abstract class DataContextSrcGener   {
 		.append("import "+ Serializable.class.getName()+"; \n")
 		.append("import "+ Cloneable.class.getName()+"; \n")
 
-		.append("import "+Connection.class.getName()+"; \n\n\n")
+		.append("import "+DataSource.class.getName()+"; \n\n\n")
 		;
 		
 		src.append("public class "+cls.getSimpleName()+" extends "+DataContext.class.getName()+"{ \n\n");
 		
-		
-		src.append("\t public "+cls.getSimpleName()+"("+Connection.class.getSimpleName()+" conn){ super(conn);  } \n\n");
+		src.append("\t@Override\r\n" + 
+				"\tprotected Class thisClass() {return this.getClass();\n\n")
+		.append("\t public "+cls.getSimpleName()+"("+DataSource.class.getSimpleName()+" dataSource){ super(dataSource);  } \n\n");
 		
 		Set<String> tables=loadTables(),views=loadViews(databaseName);
 		Map<String, String> tablesPks=loadTablesPks(databaseName);

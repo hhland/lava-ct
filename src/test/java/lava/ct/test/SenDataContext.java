@@ -3,7 +3,10 @@ package lava.ct.test;
 import java.lang.String; 
 import java.lang.Integer; 
 import java.lang.Float; 
-import java.util.Date; 
+import java.util.Date;
+
+import javax.sql.DataSource;
+
 import java.math.BigDecimal; 
 import java.lang.Byte; 
 import lava.rt.linq.Table; 
@@ -15,7 +18,9 @@ import java.sql.Connection;
 
 public class SenDataContext extends lava.rt.linq.DataContext{ 
 
-	 public SenDataContext(Connection conn){ super(conn);  } 
+	@Override
+	protected Class thisClass() {return this.getClass();}
+	 public SenDataContext(DataSource conn){ super(conn);  } 
 
 	 public final Table<LANGUAGE> tableLANGUAGE=createTable(LANGUAGE.class,"LANGUAGE","LANGUAGE_ID");
 	 public final Table<PAYMENT> tablePAYMENT=createTable(PAYMENT.class,"PAYMENT","PAYMENT_ID");
@@ -705,6 +710,8 @@ public class SenDataContext extends lava.rt.linq.DataContext{
 
 
 	 } //end SALES_BY_STORE
+
+	
 
 
 
