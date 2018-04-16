@@ -49,7 +49,7 @@ public abstract class DataContextSrcGener   {
 		src.append("public class "+cls.getSimpleName()+" extends "+DataContext.class.getName()+"{ \n\n");
 		
 		src.append("\t@Override\r\n" + 
-				"\tprotected Class thisClass() {return this.getClass();\n\n")
+				"\tprotected Class thisClass() {return this.getClass(); }\n\n")
 		.append("\t public "+cls.getSimpleName()+"("+DataSource.class.getSimpleName()+" dataSource){ super(dataSource);  } \n\n");
 		
 		Set<String> tables=loadTables(),views=loadViews(databaseName);

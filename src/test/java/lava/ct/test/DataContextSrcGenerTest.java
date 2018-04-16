@@ -31,7 +31,7 @@ public class DataContextSrcGenerTest {
 	@Test
 	public void test() throws SQLException {
 		DataContextSrcGener dataContextSrcGener=new MySQLDataContextSrcGener(connection);
-		String src=dataContextSrcGener.toSrc(SenDataContext.class,"sakila");
+		String src=dataContextSrcGener.toSrc(SakilaDataContext.class,"sakila");
 		System.out.println(src);
 	}
 

@@ -16,11 +16,11 @@ import java.lang.Cloneable;
 import java.sql.Connection; 
 
 
-public class SenDataContext extends lava.rt.linq.DataContext{ 
+public class SakilaDataContext extends lava.rt.linq.DataContext{ 
 
 	@Override
 	protected Class thisClass() {return this.getClass();}
-	 public SenDataContext(DataSource conn){ super(conn);  } 
+	 public SakilaDataContext(DataSource conn){ super(conn);  } 
 
 	 public final Table<LANGUAGE> tableLANGUAGE=createTable(LANGUAGE.class,"LANGUAGE","LANGUAGE_ID");
 	 public final Table<PAYMENT> tablePAYMENT=createTable(PAYMENT.class,"PAYMENT","PAYMENT_ID");
