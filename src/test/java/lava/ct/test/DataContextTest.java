@@ -26,8 +26,8 @@ public class DataContextTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		 String url="jdbc:mysql://192.168.0.161:3306/sakila?useUnicode=true&characterEncoding=UTF-8"
-		    		,user="para_admin"
+		 String url="jdbc:mysql://lava-ct-test-dbhost:3306/sakila?useUnicode=true&characterEncoding=UTF-8"
+		    		,user="root"
 		    		,password="nfha_505"
 		    		;
 		 MysqlDataSource dataSource=new MysqlDataSource();
@@ -49,8 +49,8 @@ public class DataContextTest {
 		model.setFIRST_NAME("fist_name");
 		model.setLAST_NAME("last_name");
 		model.setLAST_UPDATE(Calendar.getInstance().getTime());
-		int re=table.insert(model);
-		assertEquals(1, re);
+		float re=table.insert(model);
+		assertEquals(1, re,0);
 	}
 	
 	@Test
@@ -59,11 +59,17 @@ public class DataContextTest {
 		model.setFIRST_NAME(model.getFIRST_NAME()+"_xxx");
 		model.setLAST_NAME(model.getLAST_NAME()+"_xxx");
 		model.setLAST_UPDATE(Calendar.getInstance().getTime());
-		int re=table.update(model);
-		assertEquals(1, re);
+		float re=table.update(model);
+		assertEquals(1, re,0);
 	}
 	
 	
+	@Test
+	public void testDelete() throws SQLException {
+		ACTOR model=table.load(2);
+		float re=table.delete(model);
+		assertEquals(1, re,0);
+	}
 	
 
 }

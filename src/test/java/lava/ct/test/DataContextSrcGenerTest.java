@@ -21,8 +21,8 @@ public class DataContextSrcGenerTest {
 	@Before
 	public void setUp() throws Exception {
 		Class.forName(Driver.class.getName());
-	    String url="jdbc:mysql://192.168.0.161:3306/sakila?useUnicode=true&characterEncoding=UTF-8"
-	    		,user="para_admin"
+	    String url="jdbc:mysql://lava-ct-test-dbhost:3306/sakila?useUnicode=true&characterEncoding=UTF-8"
+	    		,user="root"
 	    		,password="nfha_505"
 	    		;
 		connection= DriverManager.getConnection(url, user, password);

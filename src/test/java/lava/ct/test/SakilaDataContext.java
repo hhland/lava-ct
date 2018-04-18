@@ -20,7 +20,12 @@ public class SakilaDataContext extends lava.rt.linq.DataContext{
 
 	@Override
 	protected Class thisClass() {return this.getClass();}
+	 
+	
+	 public SakilaDataContext(){ super();  } 
+	
 	 public SakilaDataContext(DataSource conn){ super(conn);  } 
+	 
 
 	 public final Table<LANGUAGE> tableLANGUAGE=createTable(LANGUAGE.class,"LANGUAGE","LANGUAGE_ID");
 	 public final Table<PAYMENT> tablePAYMENT=createTable(PAYMENT.class,"PAYMENT","PAYMENT_ID");
