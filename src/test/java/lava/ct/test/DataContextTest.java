@@ -28,7 +28,7 @@ public class DataContextTest {
 	public void setUp() throws Exception {
 		 String url="jdbc:mysql://lava-ct-test-dbhost:3306/sakila?useUnicode=true&characterEncoding=UTF-8"
 		    		,user="root"
-		    		,password="nfha_505"
+		    		,password="root"
 		    		;
 		 MysqlDataSource dataSource=new MysqlDataSource();
 		 
@@ -66,7 +66,7 @@ public class DataContextTest {
 	
 	@Test
 	public void testDelete() throws SQLException {
-		ACTOR model=table.load(2);
+		ACTOR model=table.loadLast();
 		float re=table.delete(model);
 		assertEquals(1, re,0);
 	}

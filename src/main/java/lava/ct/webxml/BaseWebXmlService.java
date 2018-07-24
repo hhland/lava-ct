@@ -41,7 +41,7 @@ public abstract  class BaseWebXmlService {
 	}
 	
 	protected static String SERVICES_HOST = "www.webxml.com.cn";
-	protected static String SERVICES_BASE_URL = "http://webservice.webxml.com.cn/WebServices";
+	protected static String SERVICES_BASE_URL = "http://ws.webxml.com.cn/WebServices";
 	protected static String SERVICES_SUBFIX=".asmx";
 	
 	protected String serviceUrl="";

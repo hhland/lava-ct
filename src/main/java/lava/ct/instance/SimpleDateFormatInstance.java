@@ -16,8 +16,14 @@ public enum SimpleDateFormatInstance {
 	    simpleDateFormat=new SimpleDateFormat(pattern);
 	}
 
-	public SimpleDateFormat getSimpleDateFormat() {
-		return simpleDateFormat;
+	
+	
+	public Date parse(String source) throws ParseException {
+		return simpleDateFormat.parse(source);
+	}
+	
+	public String format(Date date) {
+		return simpleDateFormat.format(date);
 	}
 	
 	public static Date tryParse(String dateString) throws ParseException {
@@ -25,7 +31,7 @@ public enum SimpleDateFormatInstance {
         Date dateReturn = null;
         for (SimpleDateFormatInstance dateFormat : SimpleDateFormatInstance.values()) {
             try {
-            	dateReturn=dateFormat.getSimpleDateFormat().parse(dateString);
+            	dateReturn=dateFormat.parse(dateString);
             }finally {}
             if(dateReturn==null)throw new ParseException(dateString,0);
         }

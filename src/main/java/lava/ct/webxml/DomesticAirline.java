@@ -33,7 +33,7 @@ public class DomesticAirline extends BaseWebXmlService {
 	public List<AirlinesTime> getDomesticAirlinesTime(String startCity,String lastCity,Date theDate,String userID) throws Exception{
 		theDate=theDate==null?new Date():theDate;
 		List<AirlinesTime> airlinesTimes=new ArrayList<DomesticAirline.AirlinesTime>();
-		String parma=MessageFormat.format("startCity={0}&lastCity={1}&theDate={2}&userID={3}", startCity,lastCity,SimpleDateFormatInstance.YMD.getSimpleDateFormat().format(theDate),userID);
+		String parma=MessageFormat.format("startCity={0}&lastCity={1}&theDate={2}&userID={3}", startCity,lastCity,SimpleDateFormatInstance.YMD.format(theDate),userID);
 		Document doc=this.doGetEndPoint(Endpoint.getDomesticAirlinesTime.name(),parma);
 		//Element el=(Element) doc.getRootElement().elements().get(1);
 		//List<Node> nodes=el.element("Airlines").elements(AirlinesTime.class.getSimpleName());

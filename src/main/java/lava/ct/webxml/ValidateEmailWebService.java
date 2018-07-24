@@ -32,7 +32,7 @@ public class ValidateEmailWebService extends BaseWebXmlService {
     	Document doc=this.doGetEndPoint(Endpoint.ValidateEmailAddress.name(),param );
     	Node node=doc.selectSingleNode(XMLTag.unsignedByte.name());
     	int re=Integer.parseInt(node.getText().trim());
-    	return new ValidateEmailWebService().new ValidateReslut(theEmail, re);
+    	return new ValidateReslut(theEmail, re);
     }
     
     public ValidateReslut ValidateEmailAddressPro(String theEmail,int theEmailPort) throws Exception{
@@ -40,7 +40,7 @@ public class ValidateEmailWebService extends BaseWebXmlService {
     	Document doc=this.doGetEndPoint(Endpoint.ValidateEmailAddressPro.name(),param );
     	Node node=doc.selectSingleNode(XMLTag.unsignedByte.name());
     	int re=Integer.parseInt(node.getText().trim());
-    	return new ValidateEmailWebService().new ValidateReslut(theEmail, re);
+    	return new ValidateReslut(theEmail, re);
  
     }
     
