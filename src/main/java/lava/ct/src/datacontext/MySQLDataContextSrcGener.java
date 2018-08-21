@@ -1,4 +1,4 @@
-package lava.ct.src;
+package lava.ct.src.datacontext;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

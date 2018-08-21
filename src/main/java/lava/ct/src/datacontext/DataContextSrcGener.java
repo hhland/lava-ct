@@ -1,4 +1,4 @@
-package lava.ct.src;
+package lava.ct.src.datacontext;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -31,12 +31,16 @@ public abstract class DataContextSrcGener   {
 		this.connection=connection;
 	}
 	
-	public String toSrc(Class<? extends DataContext> cls,String databaseName) throws SQLException {
+	public String toSrc(Class<? extends DataContext> cls,String databaseName,String...justTables) throws SQLException {
 		StringBuffer src=new StringBuffer("");
 		src.append("package "+cls.getPackage().getName()+"; \n\n");
 		
 		for(ColumnStruct columnStruct : ColumnStruct.values()) {
-			src.append("import "+columnStruct.fieldCls.getName()+"; \n");
+			String fieldClsName=columnStruct.fieldCls.getName();
+			if(fieldClsName.startsWith("[L")) {
+				fieldClsName=fieldClsName.substring(2,fieldClsName.length()-1);
+			}
+			src.append("import "+fieldClsName+"; \n");
 		}
 		src.append("import "+Table.class.getName()+"; \n")
 		.append("import "+View.class.getName()+"; \n")
@@ -52,7 +56,16 @@ public abstract class DataContextSrcGener   {
 				"\tprotected Class thisClass() {return this.getClass(); }\n\n")
 		.append("\t public "+cls.getSimpleName()+"("+DataSource.class.getSimpleName()+" dataSource){ super(dataSource);  } \n\n");
 		
-		Set<String> tables=loadTables(),views=loadViews(databaseName);
+		Set<String> tables=new HashSet<>(),views=loadViews(databaseName);
+		
+		if(justTables.length>0) {
+			for(String justTable:justTables) {
+				tables.add(justTable);
+			}
+		}else {
+			tables=loadTables();
+		}
+		
 		Map<String, String> tablesPks=loadTablesPks(databaseName);
 		
 		for(String table:tables) {
@@ -166,7 +179,8 @@ public abstract class DataContextSrcGener   {
 				String colName=resultSetMetaData.getColumnName(i)
 						.trim().toUpperCase().replace(" ", "_");
 		    	int colType=resultSetMetaData.getColumnType(i);
-		        String colClsName=ColumnStruct.toClass(colType).getSimpleName();
+		    	Class colClass=ColumnStruct.toClass(colType);
+		        String colClsName=colClass.getSimpleName();
 		        
 		        sbFields.append("\t\t private " +colClsName+ " "+colName+ " ; \n " );
 		        
@@ -191,6 +205,7 @@ public abstract class DataContextSrcGener   {
 		,DECIMAL(BigDecimal.class,Types.DECIMAL,Types.NUMERIC)
 		,BIN(Byte.class,Types.LONGVARBINARY,Types.BIT)
 		,BOOLEAN(Boolean.class,Types.BOOLEAN)
+		,BITS(Byte[].class,Types.BLOB)
 		;
 		
 		private Class fieldCls;
@@ -214,6 +229,9 @@ public abstract class DataContextSrcGener   {
 				 	  return cls;
 					}
 				}
+			}
+			if(cls==null) {
+				cls=cls;
 			}
 			return cls;
 		}

@@ -66,7 +66,7 @@ public abstract  class BaseWebXmlService {
         
          System.err.println(url);
 		 
-		 String context=IOCommon.get(url,param);
+		 String context=IOCommon.get(url+"?"+param);
 		 try{
 		 doc= DocumentHelper.parseText(context);
 		 }catch(Exception ex){
