@@ -29,7 +29,7 @@
 
 
   	<dependency>
-  		<groupId>com.uhealin.lava</groupId>
+  		<groupId>com.uhealin</groupId>
   		<artifactId>lava-rt</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>

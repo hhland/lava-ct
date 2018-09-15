@@ -18,14 +18,33 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
+
+import lava.rt.common.TextCommon;
 import lava.rt.instance.MethodInstance;
+import lava.rt.linq.Column;
 import lava.rt.linq.DataContext;
 import lava.rt.linq.Table;
 import lava.rt.linq.View;
 
 public abstract class DataContextSrcGener   {
 
+	public static String COLUMN_METHOD="		public String eq(Object val) {return sql_eq(true,name(),val);}\r\n" + 
+			"		public String notEq(Object val) {return sql_eq(false,name(),val);}\r\n" + 
+			"		public String lt(Object val) {return sql_lt(true,name(),val);}\r\n" + 
+			"		public String notLt(Object val) {return sql_lt(false,name(),val);}\r\n" + 
+			"		public String gt(Object val) {return sql_gt(true,name(),val);}\r\n" + 
+			"		public String notGt(Object val) {return sql_gt(false,name(),val);}\r\n" + 
+			"		public String isNull() {return sql_isnull(true,name());}\r\n" + 
+			"		public String isNotNull() {return sql_isnull(false,name());}\r\n" + 
+			"		public <T> String in(T... vals) {return sql_in(true,name(),vals);}\r\n" + 
+			"		public <T> String notIn(T...vals) {return sql_in(false,name(),vals);}\r\n" + 
+			"		public <T> String between(T from,T to) {return sql_between(true,name(),from,to);}\r\n" + 
+			"		public String like(String val) {return sql_like(true, name(),val);}\r\n" + 
+			"		public String notLike(String val) {return sql_like(false, name(),val);}";
+	
 	protected Connection connection;
+	
+	protected Set<String> columnNames=new HashSet<>();
 	
 	public DataContextSrcGener(Connection connection) {
 		this.connection=connection;
@@ -44,10 +63,12 @@ public abstract class DataContextSrcGener   {
 		}
 		src.append("import "+Table.class.getName()+"; \n")
 		.append("import "+View.class.getName()+"; \n")
+		.append("import " + Column.class.getName()+" ; \n")
 		.append("import "+ Serializable.class.getName()+"; \n")
 		.append("import "+ Cloneable.class.getName()+"; \n")
 
 		.append("import "+DataSource.class.getName()+"; \n\n\n")
+		
 		;
 		
 		src.append("public class "+cls.getSimpleName()+" extends "+DataContext.class.getName()+"{ \n\n");
@@ -104,6 +125,19 @@ public abstract class DataContextSrcGener   {
 			src.append(tableSrc.toSrc());
 		}
 		
+		src
+		.append("\tpublic final static Criteria CRITERIA=new Criteria();\n\n")
+		.append("\tpublic  static class Criteria{ \n\n")
+		.append("\t\tprivate Criteria() {} \n\n")
+		.append("\t\tpublic static final Column \n");
+		
+		for(String colName:columnNames) {
+			src.append("\t\t"+ colName+" = new Column(\""+colName+"\"),\n" );
+		}
+		src.deleteCharAt(src.length()-2);
+		src.append( "\t\t;\n\n")
+		.append("\t} \n\n")
+		;
 		src.append("\n\n\n} //end");
 		
 		return src.toString();
@@ -128,6 +162,8 @@ public abstract class DataContextSrcGener   {
 	public abstract Map<String,String> loadTablesPks(String databaseName) throws SQLException;
 	
 	
+	
+	
 	public class TableSrc{
 		
 		public String tableName,pkName;
@@ -140,12 +176,20 @@ public abstract class DataContextSrcGener   {
 		public StringBuffer toSrc() throws SQLException{
 	        StringBuffer context=new StringBuffer("");
 	    	
+	        //context.append("\t public    class "+tableName+"Table extend Table<"+tableName+"> { \n\n ")
+	        //.append("\t\tpublic "+tableName+"Table (DataContext dataContext){ super(dataContext, "+tableName+".class, \""+tableName+"\", \""+pkName+"\") }\n\n")
+	        
+	        
+	        //.append("\t\tpublic final  Column "+genColsEnum() +"; \n\n")
+	        //.append("\t } \n\n");
 	        
 	        context
+	       
 	    	.append("\t public  class "+tableName+" implements ")
 	    	.append(""+Serializable.class.getSimpleName())
 	    	.append(","+Cloneable.class.getSimpleName())
 	    	.append(" {\n")
+	    	
 	    	.append(this.genColsSrc())
 	    	.append("\n\n")
 	    	.append(genOveriderSrc())
@@ -178,6 +222,7 @@ public abstract class DataContextSrcGener   {
 			for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
 				String colName=resultSetMetaData.getColumnName(i)
 						.trim().toUpperCase().replace(" ", "_");
+				columnNames.add(colName);
 		    	int colType=resultSetMetaData.getColumnType(i);
 		    	Class colClass=ColumnStruct.toClass(colType);
 		        String colClsName=colClass.getSimpleName();
@@ -192,6 +237,28 @@ public abstract class DataContextSrcGener   {
 			return sbFields+"\n"+sbGetSeter;
 		}
 		
+		
+		private String genColsEnum() throws SQLException {
+			// TODO Auto-generated method stub
+			StringBuffer sbFields=new StringBuffer();
+			String sql=MessageFormat.format("select * from {0} where 1=2",tableName );
+			PreparedStatement preparedStatement= connection.prepareStatement(sql);
+			ResultSetMetaData resultSetMetaData= preparedStatement.executeQuery().getMetaData();
+			for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+				String colName=resultSetMetaData.getColumnName(i)
+						.trim().toUpperCase().replace(" ", "_");
+		    	int colType=resultSetMetaData.getColumnType(i);
+		    	Class colClass=ColumnStruct.toClass(colType);
+		        String colClsName=colClass.getSimpleName();
+		        
+		        sbFields.append("\t\t "+colName+" =new Column(\""+colName+"\"),\n");
+		        
+		        
+			}
+			
+			MethodInstance.close.invoke(preparedStatement,resultSetMetaData);
+			return TextCommon.trim(sbFields.toString(),",");
+		}
 	}
 	
 	
@@ -236,4 +303,6 @@ public abstract class DataContextSrcGener   {
 			return cls;
 		}
 	}
+	
+	
 }
