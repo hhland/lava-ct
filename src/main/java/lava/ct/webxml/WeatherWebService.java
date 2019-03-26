@@ -10,7 +10,7 @@ import org.dom4j.Document;
 import org.dom4j.Node;
 
 import lava.ct.instance.SimpleDateFormatInstance;
-import lava.rt.common.TextCommon;
+
 
 import java.util.Calendar;
 
@@ -38,7 +38,7 @@ public class WeatherWebService extends BaseWebXmlService{
 		for(Node node:nodes){
 			Area area=this.new Area();
 			String text=node.getText();
-			area.AreaCode=Integer.parseInt(TextCommon.subString(text, "(", ")").get(0));
+			area.AreaCode=Integer.parseInt(subString(text, "(", ")").get(0));
 			area.Area=text.substring(0,text.indexOf("("));
 			areas.add(area);
 		}
@@ -46,6 +46,8 @@ public class WeatherWebService extends BaseWebXmlService{
 		
 	}
 	
+	
+
 	public List<String> getSupportProvince()throws Exception{
 		List<String> provinces=new ArrayList<String>();
 		Document doc=this.doGetEndPoint(Endpoint.getSupportProvince.name(), "");

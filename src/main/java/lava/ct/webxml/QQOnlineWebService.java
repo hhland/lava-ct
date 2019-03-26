@@ -63,4 +63,10 @@ public class QQOnlineWebService extends BaseWebXmlService {
 	}
 	
 	
+	public static void main(String[] args) throws Exception {
+		QQOnlineWebService service=new QQOnlineWebService();
+		CheckResult re=service.qqCheckOnline("249750689");
+		System.out.println(re.getMsg());
+	}
+	
 }

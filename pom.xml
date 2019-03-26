@@ -21,19 +21,24 @@
     <version>1.6.1</version>
 </dependency>
 
-<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.32</version>
-		</dependency>
 
 
-  	<dependency>
-  		<groupId>com.uhealin</groupId>
-  		<artifactId>lava-rt</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
   	
+  	<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+<dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-all</artifactId>
+    <version>5.0.0.Alpha2</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.github.os72/protoc-jar -->
+<dependency>
+    <groupId>com.github.os72</groupId>
+    <artifactId>protoc-jar</artifactId>
+    <version>3.7.0</version>
+</dependency>
+
+
   	
   </dependencies>
 </project>
