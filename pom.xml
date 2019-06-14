@@ -5,6 +5,14 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>lava-ct</name>
   
+  <properties>
+     <kafka.version>2.2.0</kafka.version>
+      <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+    <kotlin.version>1.2.41</kotlin.version>
+  </properties>
+  
   <dependencies>
   
   <dependency>
@@ -22,7 +30,11 @@
 </dependency>
 
 
-
+ <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>${kotlin.version}</version>
+    </dependency>
   	
   	<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
 <dependency>
@@ -39,6 +51,39 @@
 </dependency>
 
 
+<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-clients</artifactId>
+    <version>${kafka.version}</version>
+</dependency>
+
+  	<!-- https://mvnrepository.com/artifact/ovotech/kafka-avro-confluent -->
+<dependency>
+    <groupId>com.uhealin</groupId>
+    <artifactId>kafka-avro-confluent</artifactId>
+    <version>2.1.0-3</version>
+</dependency>
   	
   </dependencies>
+  
+  
+  
+  
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.jetbrains.kotlin</groupId>
+  			<artifactId>kotlin-maven-plugin</artifactId>
+  			<version>${kotlin.version}</version>
+  			<configuration>
+  			  <sourceDirs>
+  			     <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+  			  </sourceDirs>
+  			  
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </build>
+  
 </project>
